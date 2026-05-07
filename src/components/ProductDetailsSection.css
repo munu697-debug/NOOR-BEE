@@ -1,0 +1,193 @@
+.apple-details-container {
+    position: relative;
+    height: 400vh;
+    /* Long scroll duration */
+    width: 100%;
+    background: var(--color-charcoal-dark);
+    /* Same beige to blend seamlessly */
+}
+
+.apple-details-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details-intro {
+    position: absolute;
+    top: 40%;
+    text-align: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.details-product-center {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.details-product-center img {
+    width: 80%;
+    max-width: 500px;
+    object-fit: contain;
+    filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.2));
+}
+
+.detail-feature {
+    position: absolute;
+    max-width: 300px;
+    z-index: 2;
+    text-align: left;
+}
+
+.detail-left {
+    left: 10%;
+    top: 45%;
+}
+
+.detail-right {
+    right: 10%;
+    top: 45%;
+    text-align: right;
+}
+
+.detail-feature h3 {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    color: var(--color-gold-dark);
+    margin-bottom: 12px;
+    line-height: 1.1;
+}
+
+.detail-feature p {
+    font-size: 16px;
+    color: var(--color-charcoal);
+    line-height: 1.5;
+}
+
+.detail-price-reveal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+.price-glass-card {
+    padding: 40px 60px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.price-glass-card h3 {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    color: var(--color-charcoal-dark);
+    /* wait, charcoal-dark is the bg. I should use plain text */
+    margin-bottom: 8px;
+}
+
+.price-glass-card {
+    color: var(--color-cream);
+    /* text color */
+}
+
+.price-glass-card h3 {
+    color: var(--color-cream);
+}
+
+.price-tag {
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--color-gold-dark);
+    margin: 10px 0;
+    display: block;
+    letter-spacing: -2px;
+}
+
+.price-sub {
+    font-size: 14px;
+    color: var(--color-charcoal);
+    margin-bottom: 32px;
+}
+
+.buy-btn {
+    background: var(--color-cream);
+    /* Dark color */
+    color: var(--color-charcoal-dark);
+    /* Light color */
+    padding: 16px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 40px;
+    transition: all 0.3s ease;
+}
+
+.buy-btn:hover {
+    background: var(--color-gold-dark);
+    color: white;
+    transform: scale(1.05);
+}
+
+@media (max-width: 1024px) {
+    .detail-left {
+        left: 5%;
+        top: 20%;
+        max-width: 250px;
+    }
+
+    .detail-right {
+        right: 5%;
+        top: 70%;
+        max-width: 250px;
+    }
+
+    .detail-feature h3 {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .details-product-center img {
+        max-width: 300px;
+    }
+
+    .detail-left {
+        left: 5%;
+        top: 15%;
+        text-align: center;
+        right: 5%;
+        max-width: 100%;
+    }
+
+    .detail-right {
+        right: 5%;
+        top: 75%;
+        text-align: center;
+        left: 5%;
+        max-width: 100%;
+    }
+
+    .price-glass-card {
+        padding: 30px;
+        width: 90vw;
+    }
+
+    .price-tag {
+        font-size: 48px;
+    }
+}

@@ -1,0 +1,356 @@
+.auth-container,
+.profile-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 120px 20px 60px;
+    min-height: 80vh;
+}
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 100px 20px 40px;
+    position: relative;
+}
+
+.auth-card.glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 28px;
+    padding: 48px 40px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    max-width: 440px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-brand {
+    margin-bottom: 32px;
+}
+
+.auth-logo {
+    height: 48px;
+    width: auto;
+}
+
+.auth-header h2 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: var(--color-charcoal-dark);
+    margin-bottom: 8px;
+}
+
+.auth-header p {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 32px;
+}
+
+.auth-divider {
+    position: relative;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.auth-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(0,0,0,0.1);
+}
+
+.auth-divider span {
+    position: relative;
+    padding: 0 16px;
+    color: #888;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    color: var(--color-charcoal-dark);
+    padding: 16px 20px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.google-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    border-color: rgba(0,0,0,0.15);
+}
+
+.google-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.auth-footer-text {
+    margin-top: 24px;
+    font-size: 13px;
+    color: #888;
+    line-height: 1.5;
+}
+
+/* Profile Layout */
+.profile-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+}
+
+.profile-sidebar {
+    background: #fff;
+    border-radius: 24px;
+    padding: 30px 20px;
+    box-shadow: var(--shadow-soft);
+    height: fit-content;
+}
+
+.profile-avatar {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.avatar-circle {
+    width: 80px;
+    height: 80px;
+    background: var(--color-gold);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 auto 16px;
+}
+
+.profile-avatar h3 {
+    font-size: 20px;
+    color: var(--color-charcoal-dark);
+    margin-bottom: 4px;
+}
+
+.profile-avatar p {
+    color: var(--color-charcoal);
+    font-size: 14px;
+}
+
+.profile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--color-charcoal);
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+    background: rgba(179, 133, 27, 0.05);
+    color: var(--color-gold-dark);
+}
+
+.nav-item.logout {
+    margin-top: 20px;
+    color: #d32f2f;
+}
+
+.nav-item.logout:hover {
+    background: rgba(211, 47, 47, 0.05);
+}
+
+/* Profile Content */
+.profile-content {
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: var(--shadow-soft);
+}
+
+.content-header {
+    margin-bottom: 30px;
+}
+
+.content-header h2 {
+    font-size: 28px;
+    color: var(--color-charcoal-dark);
+    margin-bottom: 8px;
+}
+
+.content-header p {
+    color: var(--color-charcoal);
+    font-size: 15px;
+}
+
+.profile-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.form-group.full-width, .form-row, .form-actions {
+    grid-column: 1 / -1;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-charcoal-dark);
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    color: #999;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--color-charcoal-dark);
+    transition: border-color 0.3s ease;
+}
+
+.input-wrapper input:focus {
+    border-color: var(--color-gold);
+    outline: none;
+}
+
+.form-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save-btn {
+    background: var(--color-gold);
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+    background: var(--color-gold-dark);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-form, .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .auth-card {
+        padding: 30px 20px;
+    }
+}
+
+/* Order Tracking Styles */
+.user-order-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.user-order-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-color: var(--color-gold-light);
+}
+
+.order-status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.order-status-badge.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.empty-orders {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-orders-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.order-items {
+    margin: 15px 0;
+}
+
+.user-orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

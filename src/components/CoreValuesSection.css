@@ -1,0 +1,118 @@
+/* CoreValuesSection.css */
+.core-values-section {
+    background: #fdfaf4;
+    position: relative;
+    overflow: hidden;
+    padding-top: 180px;
+    padding-bottom: 180px;
+}
+
+/* Minimal Premium Typography Layout */
+.vm-premium-fullwidth {
+    max-width: 900px;
+    margin: 0 auto 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 80px;
+}
+
+.vm-title {
+    font-size: 56px;
+    font-family: var(--font-heading);
+    color: var(--color-charcoal-dark);
+    margin-bottom: 30px;
+}
+
+.vm-title span {
+    color: #cca43b; /* Premium deeper gold */
+}
+
+.vm-text-block-full p {
+    font-size: 24px;
+    color: var(--color-charcoal);
+    line-height: 1.8;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+.vm-divider-line-full {
+    height: 2px;
+    background: #cca43b;
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    .vm-title { font-size: 42px; }
+    .vm-text-block-full p { font-size: 18px; }
+}
+
+/* Core Values Grid */
+.values-grid-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2; /* Sit on top */
+    padding: 0 5%;
+}
+
+.values-heading {
+    text-align: center;
+    font-size: 40px;
+    font-family: var(--font-heading);
+    color: var(--color-charcoal-dark);
+    margin-bottom: 50px;
+}
+
+.values-heading span {
+    color: #cca43b;
+}
+
+.values-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+}
+
+.value-card {
+    background: rgba(253, 250, 244, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid #d8ccb8;
+    padding: 30px;
+    border-radius: 20px;
+    width: 350px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    cursor: default;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.value-card:hover {
+    border-color: #cca43b;
+}
+
+.value-card h4 {
+    font-size: 22px;
+    color: #633636;
+    margin-bottom: 12px;
+}
+
+.value-card p {
+    font-size: 15px;
+    color: var(--color-charcoal);
+    line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+    .vm-content-grid {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+    .vision-block, .mission-block { text-align: center; }
+    .vm-center-divider { padding: 10px 0; }
+    
+    .desktop-arrow { display: none; }
+    .mobile-arrow { display: flex; }
+}

@@ -1,0 +1,108 @@
+:root {
+  /* Colors - Light Theme */
+  --color-gold: #b3851b;
+  --color-gold-dark: #8a6411;
+  --color-gold-light: #d4af37;
+  --color-cream: #141414;
+  /* Dark for text, kept for legacy class support */
+  --color-charcoal: #444444;
+  --color-charcoal-dark: #1a1a1a;
+  /* True dark for bold headings */
+  --bg-color: #fcf8f2;
+  /* Creamy background */
+
+  /* Typography */
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Playfair Display', serif;
+
+  /* Glassmorphism setup */
+  --glass-bg: rgba(255, 255, 255, 0.3);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+
+  /* Shadows */
+  --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+  --shadow-float: 0 30px 60px -15px rgba(0, 0, 0, 0.1);
+
+  /* Global variables */
+  --max-width: 1600px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-cream);
+  background-color: var(--bg-color);
+  /* Fixed background usage */
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: var(--color-gold);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* Utility Classes */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 24px;
+}
+
+.text-gold {
+  color: var(--color-gold);
+}
+
+.text-cream {
+  color: var(--color-cream);
+}
+
+.bg-gold {
+  background: var(--color-gold);
+}
+
+/* Hide scrollbar for clean Apple-style look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-charcoal-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}

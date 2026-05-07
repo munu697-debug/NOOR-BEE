@@ -1,0 +1,118 @@
+.faq-section.dark-section {
+    padding: 100px 5%;
+    background: #e6ddcd;
+    position: relative;
+    z-index: 5;
+}
+
+.faq-container-centered {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.faq-header-centered {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.faq-header-centered h2 {
+    font-size: 40px;
+    font-family: var(--font-heading);
+    color: var(--color-charcoal-dark);
+    font-weight: 500;
+}
+
+.faq-header-centered span {
+    font-weight: 700;
+    color: var(--color-gold-dark);
+}
+
+.faq-list-centered {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.faq-card {
+    background: #fdfaf4;
+    border: 1px solid #d8ccb8;
+    border-radius: 12px;
+    padding: 24px 28px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.faq-card:hover {
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    border-color: #eac54f;
+}
+
+.faq-card.open {
+    border-color: #eac54f;
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(234, 197, 79, 0.15);
+}
+
+.faq-card-q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-card-q h4 {
+    font-size: 16px;
+    color: var(--color-charcoal-dark);
+    margin: 0;
+    font-family: var(--font-body);
+    font-weight: 600;
+}
+
+.faq-icon-svg {
+    color: var(--color-charcoal);
+    transition: color 0.3s;
+}
+
+.faq-card.open .faq-icon-svg {
+    color: var(--color-gold-dark);
+}
+
+.faq-card-a-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s ease;
+}
+
+.faq-card-a-wrapper.expanded {
+    grid-template-rows: 1fr;
+}
+
+.faq-card-a {
+    overflow: hidden;
+}
+
+.faq-card-a p {
+    color: var(--color-charcoal);
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+    padding-top: 16px;
+    margin-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+    .faq-header-centered h2 {
+        font-size: 32px;
+    }
+
+    .faq-card {
+        padding: 20px;
+    }
+}

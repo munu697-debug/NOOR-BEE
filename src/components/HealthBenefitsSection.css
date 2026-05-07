@@ -1,0 +1,170 @@
+/* HealthBenefitsSection.css */
+.health-timeline-section {
+    height: 300vh; /* Extremely tall to extend page length */
+    background: #fdfaf4; /* Clean NOOR BEE Cream */
+    position: relative;
+    font-family: var(--font-body);
+}
+
+.ht-sticky-view {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ht-header {
+    text-align: center;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.ht-header h2 {
+    font-size: 56px;
+    font-family: var(--font-heading);
+    color: var(--color-charcoal-dark);
+}
+
+.ht-header span {
+    color: #cca43b; /* Premium Noir Bee Gold */
+}
+
+.ht-viewport {
+    width: 100vw;
+    will-change: transform;
+}
+
+.ht-container {
+    position: relative;
+    width: 200vw; /* Double width to allow massive horizontal span */
+    max-width: 2800px;
+    margin: 0;
+    height: 500px; 
+}
+
+.ht-svg-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.ht-nodes-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.ht-node {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Watermark Numbering */
+.ht-watermark {
+    position: absolute;
+    font-size: 240px;
+    font-weight: 800;
+    color: rgba(204, 164, 59, 0.08); /* NOOR BEE gold with ultra low opacity */
+    z-index: -1;
+    font-family: var(--font-body);
+    line-height: 1;
+}
+
+.icon-top ~ .ht-watermark { top: -20px; right: -40px; }
+.icon-bottom ~ .ht-watermark { bottom: -20px; right: -40px; }
+
+/* Glowing golden hexagon icon */
+.ht-icon-wrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    background: #fff;
+    box-shadow: 0 10px 40px rgba(234, 197, 79, 0.5); /* Gold glow instead of blue */
+    border-radius: 20px; 
+    border: 1px solid rgba(234, 197, 79, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #cca43b;
+    z-index: 3;
+}
+
+/* Math layout for height 500 */
+/* Middle is 250.
+SVG is 200px thick (150 to 350).
+Peaks at 150 + 25 = 175.
+Valleys at 150 + 175 = 325.
+Icon is 70px tall (35px center displacement).
+Icon top center = 175 - 35 = 140px.
+Icon bottom center = 325 - 35 = 290px.
+*/
+.icon-top { top: 140px; }
+.icon-bottom { top: 290px; }
+
+/* Text Blocks */
+.ht-text-wrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    background: rgba(253, 250, 244, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.text-top { top: 0px; }
+.text-bottom { top: 400px; }
+
+.ht-text-wrapper h3 {
+    font-size: 22px;
+    color: #5a3737;
+    margin: 0 0 10px;
+    font-family: var(--font-heading);
+}
+
+.ht-text-wrapper p {
+    font-size: 15px;
+    color: var(--color-charcoal);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Mobile responsive fallback */
+@media (max-width: 1024px) {
+    .health-timeline-section { height: auto; }
+    .ht-sticky-view { height: auto; position: relative; padding: 100px 5%; overflow: visible; }
+    .ht-header { position: relative; top: 0; margin-bottom: 60px; }
+    
+    .ht-viewport { width: 100%; transform: none !important; }
+    .ht-container { width: 100%; height: auto; max-width: 100%; }
+    .ht-svg-wrapper { display: none; }
+    
+    .ht-nodes-row { position: relative; display: flex; flex-direction: column; gap: 60px; align-items: center; }
+    .ht-node { position: relative; left: auto !important; transform: none !important; width: 100%; max-width: 320px; align-items: center; }
+    
+    .ht-icon-wrapper { position: relative; top: auto; left: auto; transform: none; margin-bottom: 20px; }
+    .ht-text-wrapper { position: relative; top: auto; left: auto; transform: none; background: transparent; padding: 0; margin-bottom: 40px;}
+    .ht-watermark { top: -20px !important; right: auto !important; left: 50% !important; transform: translateX(-50%); }
+}

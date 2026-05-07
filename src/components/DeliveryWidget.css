@@ -1,0 +1,63 @@
+/* DeliveryWidget.css */
+.delivery-widget {
+    padding: 32px;
+    border-radius: 24px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.delivery-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.delivery-header h4 {
+    font-size: 20px;
+    color: var(--color-cream);
+}
+
+.delivery-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-charcoal);
+    margin-bottom: 24px;
+}
+
+.delivery-form {
+    display: flex;
+    gap: 12px;
+}
+
+.pincode-input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: var(--color-cream);
+    font-family: var(--font-body);
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.pincode-input:focus {
+    border-color: var(--color-gold);
+}
+
+.check-btn {
+    background: var(--color-cream);
+    color: var(--color-charcoal-dark);
+    padding: 0 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.check-btn:hover {
+    background: var(--color-gold);
+    color: var(--color-cream);
+}

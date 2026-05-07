@@ -1,0 +1,114 @@
+/* TrustSection.css */
+.trust-banner-container {
+    width: 100%;
+    background: #fdfaf4; /* Perfectly matches NOOR BEE Cream background */
+    padding: 130px 0 60px 0; 
+    margin-top: -80px; 
+    overflow: hidden;
+    position: relative;
+    z-index: 5;
+    border-bottom-left-radius: 80px;
+    border-bottom-right-radius: 80px;
+}
+
+.trust-marquee {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+}
+
+.trust-marquee::before,
+.trust-marquee::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 180px; 
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+.trust-marquee::before {
+    left: 0;
+    background: linear-gradient(to right, #fdfaf4 10%, transparent); /* Matches cream */
+}
+.trust-marquee::after {
+    right: 0;
+    background: linear-gradient(to left, #fdfaf4 10%, transparent); /* Matches cream */
+}
+
+.trust-marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 100px; 
+    white-space: nowrap;
+    animation: slideMarquee 25s linear infinite; 
+    padding-left: 100px;
+    width: max-content;
+}
+
+@keyframes slideMarquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-100% / 3)); }
+}
+
+.trust-banner-container:hover .trust-marquee-track {
+    animation-play-state: paused;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-shrink: 0;
+    cursor: default;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.trust-item:hover {
+    transform: translateY(-4px);
+}
+
+.trust-icon {
+    color: #cca43b; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 4px 12px rgba(204, 164, 59, 0.2)); 
+}
+
+.trust-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.trust-text h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--color-charcoal-dark); /* Dark grey text for light theme */
+    font-family: var(--font-body);
+}
+
+.trust-text p {
+    margin: 0;
+    font-size: 13px;
+    color: #777; /* Classic clean grey */
+    font-weight: 400;
+}
+
+/* Mobile responsive fallback */
+@media (max-width: 768px) {
+    .trust-banner-container {
+        padding: 15px 0;
+    }
+    .trust-marquee-track {
+        gap: 50px;
+        padding-left: 50px;
+    }
+    .trust-item { gap: 10px; }
+    .trust-icon svg { width: 24px; height: 24px; }
+    .trust-text h4 { font-size: 14px; }
+    .trust-text p { font-size: 11px; }
+}
