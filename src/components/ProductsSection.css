@@ -90,6 +90,37 @@
     display: block;
 }
 
+.prod-fav-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    color: #888;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+}
+
+.prod-fav-btn:hover {
+    transform: scale(1.1);
+    background: #fff;
+    color: #e53e3e;
+}
+
+.prod-fav-btn.active {
+    color: #e53e3e;
+    background: #fff;
+}
+
 .prod-content {
     padding: 30px 24px;
     display: flex;

@@ -6,9 +6,10 @@ import { onAuthStateChanged } from 'firebase/auth';
 import './NavBar.css';
 
 const NavBar = ({ page = 'home' }) => {
-  const { getTotalItems, setIsCartOpen } = useCart();
+  const { getTotalItems, setIsCartOpen, wishlistItems, setIsWishlistOpen } = useCart();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const cartCount = getTotalItems();
+  const wishlistCount = wishlistItems?.length || 0;
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -34,8 +35,13 @@ const NavBar = ({ page = 'home' }) => {
         </nav>
 
         <div className="nav-actions">
-          <button className="icon-btn" aria-label="Wishlist">
+          <button 
+            className="icon-btn cart-btn" 
+            aria-label="Wishlist"
+            onClick={() => setIsWishlistOpen(true)}
+          >
             <Heart size={20} />
+            {wishlistCount > 0 && <span className="cart-badge">{wishlistCount}</span>}
           </button>
           <a href="#profile" className="icon-btn" aria-label="User Profile">
             <User size={20} />

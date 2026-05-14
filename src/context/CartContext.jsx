@@ -17,10 +17,26 @@ export const CartProvider = ({ children }) => {
     });
     const [isCartOpen, setIsCartOpen] = useState(false);
 
+    // Wishlist State
+    const [wishlistItems, setWishlistItems] = useState(() => {
+        const savedWishlist = localStorage.getItem('wishlist');
+        if (savedWishlist) {
+            try { return JSON.parse(savedWishlist); } 
+            catch (e) { return []; }
+        }
+        return [];
+    });
+    const [isWishlistOpen, setIsWishlistOpen] = useState(false);
+
     // Save cart to localStorage whenever it changes
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
+
+    // Save wishlist to localStorage whenever it changes
+    useEffect(() => {
+        localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
+    }, [wishlistItems]);
 
     const addToCart = (product, options = {}) => {
         const { color = 'Golden', size = '500g', quantity = 1 } = options;
@@ -82,6 +98,19 @@ export const CartProvider = ({ children }) => {
         }, 0);
     };
 
+    // Wishlist functions
+    const toggleWishlist = (product) => {
+        if (wishlistItems.find(item => item.id === product.id)) {
+            setWishlistItems(wishlistItems.filter(item => item.id !== product.id));
+        } else {
+            setWishlistItems([...wishlistItems, product]);
+        }
+    };
+
+    const isInWishlist = (productId) => {
+        return !!wishlistItems.find(item => item.id === productId);
+    };
+
     return (
         <CartContext.Provider
             value={{
@@ -93,7 +122,12 @@ export const CartProvider = ({ children }) => {
                 getTotalItems,
                 getTotalPrice,
                 isCartOpen,
-                setIsCartOpen
+                setIsCartOpen,
+                wishlistItems,
+                toggleWishlist,
+                isInWishlist,
+                isWishlistOpen,
+                setIsWishlistOpen
             }}
         >
             {children}

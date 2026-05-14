@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { db } from '../firebase';
 import { ref, onValue } from 'firebase/database';
+import { Heart } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 import './ProductsSection.css';
 import ProductDetailsModal from './ProductDetailsModal';
 
 const ProductsSection = () => {
+    const { toggleWishlist, isInWishlist } = useCart();
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -49,6 +52,13 @@ const ProductsSection = () => {
                             transition={{ duration: 0.6, delay: 0.1 + (index * 0.15) }}
                         >
                             <div className="prod-img-wrapper">
+                                <button 
+                                    className={`prod-fav-btn ${isInWishlist(p.id) ? 'active' : ''}`}
+                                    onClick={(e) => { e.stopPropagation(); toggleWishlist(p); }}
+                                    aria-label="Add to Wishlist"
+                                >
+                                    <Heart size={20} fill={isInWishlist(p.id) ? "currentColor" : "none"} />
+                                </button>
                                 <motion.img
                                     src={p.image}
                                     alt={p.title}

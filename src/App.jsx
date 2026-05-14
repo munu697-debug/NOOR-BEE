@@ -14,6 +14,7 @@ import TrustSection from './components/TrustSection';
 import DeliveryWidget from './components/DeliveryWidget';
 import ContactSection from './components/ContactSection';
 import CartModal from './components/CartModal';
+import WishlistModal from './components/WishlistModal';
 import UserProfile from './components/UserProfile';
 import AdminPanel from './components/AdminPanel';
 import Footer from './components/Footer';
@@ -107,6 +108,7 @@ function App() {
           </main>
         )}
 
+        <WishlistModal />
         <CartModal />
         <SpeedInsights />
       </div>
