@@ -12,6 +12,7 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
     const [quantity, setQuantity] = useState(1);
     const [recommended, setRecommended] = useState([]);
     const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+    const [submittedReviews, setSubmittedReviews] = useState([]);
 
     useEffect(() => {
         if (isOpen) {
@@ -49,6 +50,11 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
         message += `Product: ${product.title}\n`;
         message += `Quantity: ${quantity}\n`;
         message += `Total Amount: ₹${itemTotal}\n\n`;
+        message += `*My Details:*\n`;
+        message += `Name: \n`;
+        message += `Location/Address: \n`;
+        message += `Pin Code: \n`;
+        message += `Phone: \n\n`;
         message += "Please confirm my order.";
 
         const encodedMessage = encodeURIComponent(message);
@@ -201,6 +207,21 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
                             </div>
 
                             <div className="reviews-list">
+                                {submittedReviews.map((rev, idx) => (
+                                    <div key={`new-${idx}`} className="review-card">
+                                        <div className="stars">
+                                            {[...Array(5)].map((_, i) => (
+                                                <Star key={i} size={14} fill={i < rev.rating ? "#facc15" : "none"} color={i < rev.rating ? "#facc15" : "#ddd"} />
+                                            ))}
+                                        </div>
+                                        <div className="review-header">
+                                            <div className="reviewer"><User size={16}/> {rev.name} <span className="verified-badge">Verified</span></div>
+                                            <span className="date">{rev.date}</span>
+                                        </div>
+                                        <p className="review-text">{rev.content}</p>
+                                    </div>
+                                ))}
+
                                 <div className="review-card">
                                     <div className="stars"><Star size={14} fill="#facc15" color="#facc15" /><Star size={14} fill="#facc15" color="#facc15" /><Star size={14} fill="#facc15" color="#facc15" /><Star size={14} fill="#facc15" color="#facc15" /><Star size={14} fill="#facc15" color="#facc15" /></div>
                                     <div className="review-header">
@@ -226,6 +247,7 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
                         isOpen={isReviewModalOpen} 
                         onClose={() => setIsReviewModalOpen(false)} 
                         product={product} 
+                        onSubmitReview={(review) => setSubmittedReviews([review, ...submittedReviews])}
                     />
                 </div>
             )}

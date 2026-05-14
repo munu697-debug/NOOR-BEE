@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Star, UploadCloud, ArrowLeft } from 'lucide-react';
 import './ReviewModal.css';
 
-const ReviewModal = ({ isOpen, onClose, product }) => {
+const ReviewModal = ({ isOpen, onClose, product, onSubmitReview }) => {
     const [step, setStep] = useState(1);
     const [rating, setRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
@@ -18,8 +18,15 @@ const ReviewModal = ({ isOpen, onClose, product }) => {
     const handleBack = () => setStep(s => s - 1);
 
     const handleSubmit = () => {
-        // Here you would normally upload the review to Firebase
-        setStep(5);
+        if (onSubmitReview) {
+            onSubmitReview({
+                rating,
+                content,
+                name: isAnonymous ? 'Anonymous' : name,
+                date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' })
+            });
+        }
+        setStep(4);
     };
 
     const resetAndClose = () => {
@@ -172,39 +179,17 @@ const ReviewModal = ({ isOpen, onClose, product }) => {
                                 </button>
                                 <button 
                                     className="btn-next" 
-                                    onClick={handleNext}
+                                    onClick={handleSubmit}
                                     disabled={!email || !name}
                                 >
-                                    Next
+                                    Submit Review
                                 </button>
                             </div>
                         </div>
                     )}
 
-                    {/* Step 4: Share a picture */}
+                    {/* Step 4: Thanks */}
                     {step === 4 && (
-                        <div className="review-step step-4">
-                            <h2>Share a picture</h2>
-                            <p className="subtitle">Upload a photo to support your review.</p>
-
-                            <div className="upload-area">
-                                <UploadCloud size={32} color="#555" />
-                                <p><strong>Click to upload</strong> or drag and drop</p>
-                            </div>
-
-                            <div className="review-actions">
-                                <button className="btn-back" onClick={handleBack}>
-                                    <ArrowLeft size={16} /> Back
-                                </button>
-                                <button className="btn-next" onClick={handleSubmit}>
-                                    Next
-                                </button>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Step 5: Thanks */}
-                    {step === 5 && (
                         <div className="review-step step-5">
                             <h2>Thanks for your review!</h2>
                             <p className="subtitle">We are processing it and it will appear on the store soon.</p>
