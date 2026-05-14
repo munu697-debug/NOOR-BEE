@@ -50,6 +50,8 @@ const ProductsSection = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-5%" }}
                             transition={{ duration: 0.6, delay: 0.1 + (index * 0.15) }}
+                            onClick={() => setSelectedProduct(p)}
+                            style={{ cursor: 'pointer' }}
                         >
                             <div className="prod-img-wrapper">
                                 <button 
@@ -68,14 +70,8 @@ const ProductsSection = () => {
                             </div>
                             <div className="prod-content">
                                 <h3 className="prod-title">{p.title}</h3>
-                                <div className="prod-bottom">
+                                <div className="prod-bottom" style={{ justifyContent: 'center' }}>
                                     <span className="prod-price">₹{parseFloat(p.price || 0).toFixed(2)}</span>
-                                    <button 
-                                        className="prod-add-btn"
-                                        onClick={() => setSelectedProduct(p)}
-                                    >
-                                        Add to Cart
-                                    </button>
                                 </div>
                             </div>
                         </motion.div>
