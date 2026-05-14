@@ -1,486 +1,533 @@
-.modal-backdrop {
+.shopify-page-wrapper {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    backdrop-filter: blur(3px);
-}
-
-.product-details-modal {
-    position: fixed;
-    inset: 0;
-    background: white;
-    z-index: 1000;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-}
-
-.modal-close {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    background: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.modal-close:hover {
-    transform: scale(1.1);
-    background: #f5f5f5;
-}
-
-.modal-content {
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(420px, 0.85fr);
-    gap: 0;
-    height: 100%;
-}
-
-/* Left Side - Images */
-.modal-left {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    min-height: 100vh;
-    padding: 40px;
-    background:
-        radial-gradient(circle at top left, rgba(255, 215, 0, 0.16), transparent 30%),
-        linear-gradient(180deg, #18150f 0%, #0f0d09 100%);
-}
-
-.main-image-container {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    padding: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 0;
-    overflow: hidden;
-    cursor: zoom-in;
-    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-}
-
-.main-image-container:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 215, 0, 0.35);
-    background: rgba(255, 255, 255, 0.06);
-}
-
-.main-product-image {
-    max-width: min(100%, 720px);
-    max-height: calc(100vh - 220px);
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
-    filter: drop-shadow(0 24px 36px rgba(0, 0, 0, 0.35));
-}
-
-.thumbnail-gallery {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
-}
-
-.thumbnail {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid transparent;
-    border-radius: 6px;
-    padding: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    overflow: hidden;
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.thumbnail.active {
-    border-color: #f3c13a;
-    background: rgba(255, 255, 255, 0.14);
-}
-
-.thumbnail:hover {
-    border-color: rgba(243, 193, 58, 0.55);
-}
-
-.thumbnail.more {
-    color: white;
-    background: rgba(255, 255, 255, 0.12);
-    font-size: 12px;
-    font-weight: 600;
-}
-
-/* Right Side - Details */
-.modal-right {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    background: #fff;
+    z-index: 9999;
     overflow-y: auto;
-    padding: 48px 40px 40px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #121212;
 }
 
-.brand-section {
+/* Header */
+.shopify-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 1px solid #e5e5e5;
+    background: #fff;
 }
 
-.brand-badge {
+.shopify-header-icons {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    gap: 20px;
+    color: #333;
+}
+
+.shopify-logo img {
+    height: 35px;
+    object-fit: contain;
+}
+
+.shopify-close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    padding: 5px;
+}
+
+/* Nav */
+.shopify-nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
     font-weight: 600;
-    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: #555;
 }
 
-.brand-icon {
-    font-size: 20px;
+.shopify-nav span {
+    cursor: pointer;
+    transition: color 0.2s;
 }
 
-.sku {
-    color: #999;
-    font-size: 12px;
+.shopify-nav span:hover {
+    color: #000;
 }
 
-.product-title {
-    font-size: 28px;
-    font-weight: 700;
-    margin: 0;
-    line-height: 1.3;
+.shopify-nav span.active {
+    color: #000;
 }
 
-.rating-section {
+/* Content */
+.shopify-page-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* Product Section */
+.shopify-product-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+}
+
+.shopify-product-image-container {
+    position: relative;
+    background: #fdfbf7;
+    padding: 40px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
 }
 
-.stars {
-    display: flex;
-    gap: 4px;
+.shopify-main-image {
+    width: 100%;
+    max-height: 600px;
+    object-fit: contain;
 }
 
-.star-filled {
-    color: #FFD700;
+.special-offer-tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    z-index: 10;
 }
 
-.star-empty {
-    color: #ddd;
+.special-offer-tag img {
+    width: 100%;
+    display: block;
 }
 
-.review-count {
-    font-size: 14px;
-    color: #666;
+.css-offer-tag {
+    display: none; /* Fallback */
+    background: red;
+    color: white;
+    font-weight: 900;
+    font-size: 24px;
+    text-align: center;
+    padding: 20px;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
 
-.price-section {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
+.shopify-product-details {
+    padding-top: 20px;
 }
 
-.price {
-    font-size: 32px;
+.shopify-product-title {
+    font-size: 38px;
     font-weight: 700;
+    margin: 0 0 15px 0;
+    line-height: 1.2;
+    color: #111;
+    font-family: var(--font-heading);
 }
 
-/* Options */
-.option-section {
+.shopify-price-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 8px;
+}
+
+.shopify-old-price {
+    font-size: 16px;
+    color: #888;
+    text-decoration: line-through;
+}
+
+.shopify-new-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111;
+}
+
+.shopify-sale-badge {
+    background: #111;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.shopify-shipping-text {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.shopify-quantity-selector {
+    margin-bottom: 30px;
+}
+
+.shopify-quantity-selector label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.quantity-controls {
+    display: inline-flex;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.quantity-controls button {
+    background: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #555;
+    transition: background 0.2s;
+}
+
+.quantity-controls button:hover {
+    background: #f5f5f5;
+}
+
+.quantity-controls input {
+    width: 50px;
+    border: none;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    font-size: 16px;
+    color: #111;
+}
+
+.shopify-action-buttons {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    margin-bottom: 40px;
 }
 
-.option-section label {
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.color-options {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.color-option {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 3px solid #ddd;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-}
-
-.color-option:hover {
-    transform: scale(1.1);
-}
-
-.color-option.selected {
-    border-color: #333;
-}
-
-.checkmark {
-    color: white;
-    text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-}
-
-.size-options {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-}
-
-.size-option {
-    padding: 12px 8px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    background: white;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.size-option:hover {
-    border-color: #999;
-}
-
-.size-option.selected {
-    border-color: #333;
-    background: #333;
-    color: white;
-}
-
-.size-guide {
-    font-size: 12px;
-    color: #999;
-    margin-top: 8px;
-}
-
-.size-guide a {
-    color: #666;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-/* Action Buttons */
-.action-buttons {
-    display: flex;
-    gap: 12px;
-}
-
-.add-to-cart-btn {
-    flex: 1;
-    padding: 14px 20px;
-    background: #000;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.add-to-cart-btn:hover {
-    background: #333;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.wishlist-btn {
-    width: 50px;
-    height: 50px;
-    border: 2px solid #ddd;
-    background: white;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 24px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.wishlist-btn:hover {
-    border-color: #999;
-    transform: scale(1.05);
-}
-
-/* Delivery Info */
-.delivery-info-section {
+.btn-add-cart {
+    background: #fff;
+    color: #111;
+    border: 1px solid #111;
     padding: 16px;
-    background: #f9f9f9;
-    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
 }
 
-.delivery-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #666;
-    font-size: 14px;
+.btn-add-cart:hover {
+    border-width: 2px;
 }
 
-.delivery-icon {
-    color: #999;
-    flex-shrink: 0;
+.btn-buy-now {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
 }
 
-.delivery-text {
-    line-height: 1.4;
+.btn-buy-now:hover {
+    background: #333;
 }
 
-/* Description */
-.description-section {
-    padding-top: 16px;
+.shopify-description {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 40px;
+    padding-top: 30px;
     border-top: 1px solid #eee;
 }
 
-.description-section h3 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 12px;
-}
-
-.description-section p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #666;
+.shopify-features {
+    list-style: none;
+    padding: 0;
     margin: 0;
 }
 
-.image-zoom-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1001;
-    background: rgba(4, 4, 4, 0.9);
+.shopify-features li {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 32px;
+    gap: 10px;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
 }
 
-.image-zoom-preview {
-    max-width: min(92vw, 1200px);
-    max-height: 88vh;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.45));
+.text-green {
+    color: #10b981;
 }
 
-.image-zoom-close {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    width: 44px;
-    height: 44px;
-    border: none;
-    border-radius: 999px;
-    background: white;
+.shopify-share {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #555;
     cursor: pointer;
 }
 
+.shopify-share:hover {
+    color: #111;
+}
+
+/* Recommendations */
+.shopify-recommendations {
+    margin-top: 80px;
+    padding-top: 60px;
+    border-top: 1px solid #eee;
+}
+
+.shopify-recommendations h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.shopify-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.shopify-rec-card {
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.shopify-rec-card:hover {
+    opacity: 0.8;
+}
+
+.rec-img-wrap {
+    position: relative;
+    background: #fdfbf7;
+    margin-bottom: 15px;
+}
+
+.rec-img-wrap img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+
+.rec-sale {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: #111;
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.rec-title {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #555;
+    margin: 0 0 8px 0;
+}
+
+.rec-price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.rec-price .old {
+    color: #888;
+    text-decoration: line-through;
+    font-size: 12px;
+}
+
+.rec-price .new {
+    color: #111;
+    font-weight: 600;
+}
+
+/* Customer Reviews */
+.shopify-reviews-section {
+    margin-top: 80px;
+    padding-top: 60px;
+    border-top: 1px solid #eee;
+}
+
+.shopify-reviews-section h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+
+.reviews-summary-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto 50px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #eee;
+}
+
+.reviews-average {
+    text-align: center;
+}
+
+.reviews-average p {
+    margin: 10px 0 5px;
+    font-weight: 600;
+}
+
+.based-on {
+    font-size: 13px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.reviews-bars {
+    flex: 1;
+    max-width: 300px;
+    margin: 0 40px;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.stars-small {
+    display: flex;
+    width: 65px;
+}
+
+.bar-bg {
+    flex: 1;
+    height: 12px;
+    background: #f0f0f0;
+    border-radius: 2px;
+}
+
+.bar-fill {
+    height: 100%;
+    background: #0f766e; /* Teal color from screenshot */
+    border-radius: 2px;
+}
+
+.count {
+    font-size: 12px;
+    color: #666;
+    width: 15px;
+}
+
+.write-review-btn {
+    background: #0f766e;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.reviews-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.review-card {
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.reviewer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #111;
+}
+
+.verified-badge {
+    background: #0f766e;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 2px;
+}
+
+.date {
+    font-size: 12px;
+    color: #888;
+}
+
+.review-text {
+    color: #333;
+    font-size: 15px;
+    margin: 0;
+}
+
 /* Responsive */
-@media (max-width: 960px) {
-    .modal-content {
+@media (max-width: 900px) {
+    .shopify-product-section {
         grid-template-columns: 1fr;
+        gap: 30px;
     }
-
-    .modal-left {
-        min-height: 50vh;
-        padding: 72px 20px 20px;
-    }
-
-    .modal-close {
-        top: 16px;
-        right: 16px;
-    }
-
-    .main-product-image {
-        max-height: 42vh;
-    }
-
-    .modal-right {
-        padding: 24px 20px 28px;
-    }
-}
-
-@media (max-width: 768px) {
-    .size-options {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .product-title {
-        font-size: 22px;
-    }
-
-    .price {
-        font-size: 24px;
-    }
-}
-
-@media (max-width: 480px) {
-    .modal-left {
-        padding: 72px 16px 16px;
-    }
-
-    .thumbnail-gallery {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
-    .size-options {
+    
+    .shopify-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .action-buttons {
+    .reviews-summary-box {
         flex-direction: column;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .shopify-header {
+        padding: 15px 20px;
+    }
+    
+    .shopify-product-title {
+        font-size: 28px;
     }
 
-    .wishlist-btn {
-        width: 100%;
-    }
-
-    .image-zoom-overlay {
-        padding: 16px;
+    .shopify-nav {
+        display: none;
     }
 }
