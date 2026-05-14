@@ -10,7 +10,7 @@ import { ref, onValue, set, remove, push, update } from 'firebase/database';
 import './AdminPanel.css';
 
 // ─── ADMIN CREDENTIALS (change these) ────────────────────────────────────────
-const ADMIN_EMAIL = 'admin@noorbee.com';  // replace with your admin email
+const ADMIN_EMAILS = ['noorbeehoneynuts@gmail.com', 'munavvirmekd@gmail.com'];
 // ─── CLOUDINARY CONFIG ───────────────────────────────────────────────────────
 const CLOUD_NAME = 'dwu0obvje';     // 🔴 Cloudinary Cloud Name updated
 const UPLOAD_PRESET = 'my_unsigned_upload';
@@ -51,7 +51,7 @@ const AdminPanel = () => {
   // Auth check
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
-      if (user && user.email === ADMIN_EMAIL) {
+      if (user && user.email && ADMIN_EMAILS.includes(user.email)) {
         setIsAdminLoggedIn(true);
       } else {
         setIsAdminLoggedIn(false);
@@ -136,7 +136,7 @@ const AdminPanel = () => {
     setLoginError('');
     try {
       const result = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-      if (result.user.email !== ADMIN_EMAIL) {
+      if (!result.user.email || !ADMIN_EMAILS.includes(result.user.email)) {
         await signOut(auth);
         setLoginError('You do not have admin privileges.');
       }
