@@ -4,12 +4,14 @@ import { X, Star, Share2, Check, User, ShoppingBag, Search } from 'lucide-react'
 import { useCart } from '../context/CartContext';
 import { db } from '../firebase';
 import { ref, onValue } from 'firebase/database';
+import ReviewModal from './ReviewModal';
 import './ProductDetailsModal.css';
 
 const ProductDetailsModal = ({ product, isOpen, onClose }) => {
     const { addToCart, setIsCartOpen } = useCart();
     const [quantity, setQuantity] = useState(1);
     const [recommended, setRecommended] = useState([]);
+    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
     useEffect(() => {
         if (isOpen) {
@@ -186,7 +188,9 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
                                     ))}
                                 </div>
                                 <div className="reviews-action">
-                                    <button className="write-review-btn">Write a review</button>
+                                    <button className="write-review-btn" onClick={() => setIsReviewModalOpen(true)}>
+                                        Write a review
+                                    </button>
                                 </div>
                             </div>
 
@@ -211,6 +215,12 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
                         </div>
 
                     </motion.div>
+                    
+                    <ReviewModal 
+                        isOpen={isReviewModalOpen} 
+                        onClose={() => setIsReviewModalOpen(false)} 
+                        product={product} 
+                    />
                 </div>
             )}
         </AnimatePresence>

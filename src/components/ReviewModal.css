@@ -1,0 +1,234 @@
+.review-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+}
+
+.review-modal-content {
+    background: #fff;
+    width: 100%;
+    max-width: 600px;
+    min-height: 500px;
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+}
+
+.review-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #333;
+}
+
+.review-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.review-step h2 {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.review-step .subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.review-product-img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin: 0 auto 20px;
+    border-radius: 8px;
+}
+
+.review-product-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.rating-selector, .selected-rating {
+    margin: 0 auto 30px;
+    position: relative;
+    max-width: 300px;
+}
+
+.star-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+.star-btn:hover {
+    transform: scale(1.1);
+}
+
+.rating-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #333;
+    font-weight: 600;
+    margin-top: 5px;
+    padding: 0 15px;
+}
+
+.rating-labels-small {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #333;
+    font-weight: 600;
+    margin-top: 5px;
+    padding: 0 25px;
+}
+
+/* Forms */
+.form-group {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.form-group textarea, .form-group input[type="text"], .form-group input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.form-group textarea:focus, .form-group input:focus {
+    outline: none;
+    border-color: #0f766e;
+}
+
+.hint {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    margin-top: 6px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+    text-align: left;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.terms-text {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+
+/* Upload Area */
+.upload-area {
+    border: 1px dashed #ccc;
+    padding: 60px 20px;
+    border-radius: 4px;
+    margin: 20px 0 40px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.upload-area:hover {
+    background: #fafafa;
+}
+
+.upload-area p {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Actions */
+.review-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.review-actions.center {
+    justify-content: center;
+}
+
+.btn-back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    font-size: 15px;
+    color: #333;
+    cursor: pointer;
+}
+
+.btn-next {
+    background: #0f766e;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-next:hover:not(:disabled) {
+    background: #0d635c;
+}
+
+.confirm-text {
+    font-size: 15px;
+    color: #333;
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 40px 0;
+}
