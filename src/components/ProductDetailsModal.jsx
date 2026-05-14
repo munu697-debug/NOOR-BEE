@@ -41,9 +41,21 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
     };
 
     const handleBuyNow = () => {
-        addToCart(product, { quantity });
+        const phoneNumber = "917025050209";
+        const itemPrice = parseFloat(product.price) || 0;
+        const itemTotal = (itemPrice * quantity).toFixed(2);
+        
+        let message = "Hello NOOR BEE, I would like to place an order immediately:\n\n";
+        message += `Product: ${product.title}\n`;
+        message += `Quantity: ${quantity}\n`;
+        message += `Total Amount: ₹${itemTotal}\n\n`;
+        message += "Please confirm my order.";
+
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+        
+        window.open(whatsappUrl, '_blank');
         onClose();
-        window.location.hash = '#cart'; // Assuming you have checkout logic
     };
 
     const originalPrice = parseFloat(product.price) * 1.25; // Mock original price for sale effect
@@ -68,12 +80,6 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
                             <X size={28} strokeWidth={1.5} />
                         </button>
                     </header>
-                    <div className="shopify-nav">
-                        <span onClick={onClose}>HOME</span>
-                        <span onClick={onClose}>PRODUCTS</span>
-                        <span className="active">BEST SELLING 🔥</span>
-                        <span onClick={onClose}>OUR STORY</span>
-                    </div>
 
                     <motion.div 
                         className="shopify-page-content"
