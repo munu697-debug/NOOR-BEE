@@ -21,7 +21,7 @@ const HeroSection = () => {
         const preloadImages = () => {
             for (let i = 1; i <= MAX_FRAMES; i++) {
                 const img = new Image();
-                img.src = `/images/herosection/ezgif-frame-${String(i).padStart(3, '0')}.png`;
+                img.src = `/images/herosection/ezgif-frame-${String(i).padStart(3, '0')}.webp`;
                 imagesRef.current[i] = img;
             }
         };
@@ -29,7 +29,7 @@ const HeroSection = () => {
 
         // Draw frame 1 on mount
         const firstImg = new Image();
-        firstImg.src = `/images/herosection/ezgif-frame-001.png`;
+        firstImg.src = `/images/herosection/ezgif-frame-001.webp`;
         firstImg.onload = () => {
             if (canvasRef.current) {
                 const ctx = canvasRef.current.getContext('2d');

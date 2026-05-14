@@ -17,10 +17,21 @@ import CartModal from './components/CartModal';
 import UserProfile from './components/UserProfile';
 import AdminPanel from './components/AdminPanel';
 import Footer from './components/Footer';
+import Preloader from './components/Preloader';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import './App.css';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const [isAppLoading, setIsAppLoading] = useState(true);
+
+  useEffect(() => {
+    // Artificial delay to allow animation assets to begin buffering
+    const timer = setTimeout(() => {
+      setIsAppLoading(false);
+    }, 3500);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -97,6 +108,7 @@ function App() {
         )}
 
         <CartModal />
+        <SpeedInsights />
       </div>
     </CartProvider>
   );

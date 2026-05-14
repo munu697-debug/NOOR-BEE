@@ -100,37 +100,39 @@ const UserProfile = () => {
     
     const ordersRef = ref(db, 'orders');
     const unsubscribe = onValue(ordersRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        const list = Object.entries(data)
-          .map(([id, val]) => ({ id, ...val }))
-          .filter(order => {
-            if (!order) return false;
-            
-            const orderEmail = order.userEmail?.trim().toLowerCase();
-            // SMART RESCUE: Match if UID matches OR if Email matches (even for guest orders)
-            const matchEmail = orderEmail && orderEmail === currentUserEmail;
-            const matchUid = order.userUid && order.userUid === currentUserUid;
-            
-            // Also check if the order might have been placed with this email but marked as 'Guest'
-            const isGuestMatch = (order.userEmail === 'Guest' || !order.userUid || order.userUid === 'guest_id') && 
-                                (order.userEmail?.trim().toLowerCase() === currentUserEmail);
+      try {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const list = Object.entries(data)
+            .map(([id, val]) => ({ id, ...val }))
+            .filter(order => {
+              if (!order) return false;
+              
+              const orderEmail = order.userEmail?.trim().toLowerCase();
+              // SMART RESCUE: Match if UID matches OR if Email matches (even for guest orders)
+              const matchEmail = orderEmail && orderEmail === currentUserEmail;
+              const matchUid = order.userUid && order.userUid === currentUserUid;
+              
+              // Also check if the order might have been placed with this email but marked as 'Guest'
+              const isGuestMatch = (order.userEmail === 'Guest' || !order.userUid || order.userUid === 'guest_id') && 
+                                  (order.userEmail?.trim().toLowerCase() === currentUserEmail);
 
-            return matchEmail || matchUid || isGuestMatch;
-          });
-        
-        // Sort by date newest first
-        list.sort((a, b) => {
-          const dateA = new Date(b.createdAt || 0);
-          const dateB = new Date(a.createdAt || 0);
-          return dateA - dateB;
-        });
-        setUserOrders(list);
-      } else {
-        setUserOrders([]);
+              return matchEmail || matchUid || isGuestMatch;
+            });
+          
+          list.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+          setUserOrders(list.reverse()); // Newest first
+        } else {
+          setUserOrders([]);
+        }
+      } catch (err) {
+        console.error("Filtering error:", err);
       }
     }, (error) => {
-      console.error("Firebase Read Error:", error);
+      console.error("Firebase Permission Error:", error);
+      // If permission is denied, it's likely the database rules. 
+      // We still want to show an empty state rather than a crash.
+      setUserOrders([]);
     });
 
     return () => unsubscribe();

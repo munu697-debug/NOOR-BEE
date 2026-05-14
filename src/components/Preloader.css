@@ -1,0 +1,92 @@
+.preloader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.preloader-content {
+  text-align: center;
+  z-index: 10;
+}
+
+.loader-logo {
+  height: 100px;
+  margin-bottom: 40px;
+  filter: drop-shadow(0 0 20px rgba(214, 158, 46, 0.3));
+}
+
+.loader-bar-container {
+  width: 200px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 auto 20px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.loader-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #d69e2e, #f6e05e);
+  box-shadow: 0 0 10px rgba(246, 224, 94, 0.5);
+}
+
+.loader-text {
+  color: #d69e2e;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Honey Drips Decoration */
+.honey-drips {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.drip {
+  width: 15px;
+  height: 0;
+  background: linear-gradient(to bottom, #d69e2e, transparent);
+  border-radius: 0 0 20px 20px;
+  animation: drip-anim 3s infinite;
+}
+
+.drip:nth-child(2) {
+  animation-delay: 1s;
+  width: 10px;
+}
+
+.drip:nth-child(3) {
+  animation-delay: 2s;
+  width: 20px;
+}
+
+@keyframes drip-anim {
+  0% { height: 0; opacity: 0; }
+  50% { height: 150px; opacity: 1; }
+  100% { height: 300px; opacity: 0; }
+}
+
+@media (max-width: 600px) {
+  .loader-logo {
+    height: 80px;
+  }
+  
+  .loader-bar-container {
+    width: 150px;
+  }
+}
