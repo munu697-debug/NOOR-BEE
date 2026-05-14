@@ -57,8 +57,8 @@ const ContactSection = () => {
                                 <input type="text" placeholder="Your Name" />
                             </div>
                             <div className="form-group">
-                                <label>Email</label>
-                                <input type="email" placeholder="your@email.com" />
+                                <label>Phone Number</label>
+                                <input type="number" placeholder="Your Phone Number" />
                             </div>
                             <div className="form-group">
                                 <label>Message</label>
