@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Star, Share2, Check, User, ShoppingBag, Search } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { db } from '../firebase';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, push } from 'firebase/database';
 import ReviewModal from './ReviewModal';
 import './ProductDetailsModal.css';
 
@@ -15,23 +15,43 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
     const [submittedReviews, setSubmittedReviews] = useState([]);
 
     useEffect(() => {
-        if (isOpen) {
+        if (isOpen && product) {
             setQuantity(1);
             document.body.style.overflow = 'hidden';
             
-            // Fetch recommendations
+            // 1. Fetch recommendations
             const productsRef = ref(db, 'products');
-            onValue(productsRef, (snapshot) => {
+            const unsubProducts = onValue(productsRef, (snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
                     const list = Object.entries(data).map(([id, val]) => ({ id, ...val }));
-                    setRecommended(list.filter(p => p.id !== product?.id).slice(0, 4));
+                    setRecommended(list.filter(p => p.id !== product.id).slice(0, 4));
                 }
             });
+
+            // 2. Fetch reviews for this product
+            const reviewsRef = ref(db, 'reviews');
+            const unsubReviews = onValue(reviewsRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const list = Object.entries(data)
+                        .map(([id, val]) => ({ id, ...val }))
+                        .filter(r => r.productId === product.id)
+                        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    setSubmittedReviews(list);
+                } else {
+                    setSubmittedReviews([]);
+                }
+            });
+
+            return () => {
+                unsubProducts();
+                unsubReviews();
+                document.body.style.overflow = 'unset';
+            };
         } else {
             document.body.style.overflow = 'unset';
         }
-        return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen, product]);
 
     if (!product) return null;
@@ -247,7 +267,19 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
                         isOpen={isReviewModalOpen} 
                         onClose={() => setIsReviewModalOpen(false)} 
                         product={product} 
-                        onSubmitReview={(review) => setSubmittedReviews([review, ...submittedReviews])}
+                        onSubmitReview={async (review) => {
+                            try {
+                                await push(ref(db, 'reviews'), {
+                                    ...review,
+                                    productId: product.id,
+                                    productTitle: product.title,
+                                    createdAt: new Date().toISOString()
+                                });
+                            } catch (err) {
+                                console.error("Review submission failed:", err);
+                                alert("Failed to submit review. Check your connection.");
+                            }
+                        }}
                     />
                 </div>
             )}

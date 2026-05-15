@@ -30,6 +30,7 @@ const AdminPanel = () => {
   const [products, setProducts] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [festiveSectionEnabled, setFestiveSectionEnabled] = useState(false);
 
@@ -124,6 +125,24 @@ const AdminPanel = () => {
     return () => unsub();
   }, [isAdminLoggedIn]);
 
+  // Load reviews from Firebase
+  useEffect(() => {
+    if (!isAdminLoggedIn) return;
+    const reviewsRef = ref(db, 'reviews');
+    const unsub = onValue(reviewsRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const list = Object.entries(data).map(([id, val]) => ({ id, ...val }));
+        // Sort by date (newest first)
+        list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setReviews(list);
+      } else {
+        setReviews([]);
+      }
+    });
+    return () => unsub();
+  }, [isAdminLoggedIn]);
+
   const handleUpdateStatus = async (orderId, currentStatus) => {
     const nextStatus = currentStatus === 'pending' ? 'success' : 'pending';
     try {
@@ -139,6 +158,17 @@ const AdminPanel = () => {
       await remove(ref(db, `orders/${orderId}`));
     } catch (err) {
       console.error("Error deleting order:", err);
+    }
+  };
+
+  const handleDeleteReview = async (reviewId) => {
+    if (!window.confirm("Are you sure you want to delete this review?")) return;
+    try {
+      await remove(ref(db, `reviews/${reviewId}`));
+      alert("Review deleted.");
+    } catch (err) {
+      console.error("Error deleting review:", err);
+      alert("Delete failed.");
     }
   };
 
@@ -723,6 +753,58 @@ const AdminPanel = () => {
     setPwLoading(false);
   };
 
+  const renderReviews = () => (
+    <div className="cms-reviews">
+      <div className="cms-header-bar">
+        <h2>Customer Reviews <span className="count-badge">{reviews.length}</span></h2>
+      </div>
+
+      {reviews.length === 0 ? (
+        <div className="empty-state">
+          <Star size={48} />
+          <p>No reviews yet.</p>
+        </div>
+      ) : (
+        <div className="cms-table-wrapper">
+          <table className="cms-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Customer</th>
+                <th>Rating</th>
+                <th>Comment</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reviews.map(r => (
+                <tr key={r.id}>
+                  <td><strong>{r.productTitle || 'Unknown'}</strong></td>
+                  <td>
+                    <strong>{r.name}</strong>
+                  </td>
+                  <td>
+                    <div className="stars" style={{ display: 'flex', gap: '2px' }}>
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} fill={i < r.rating ? "#facc15" : "none"} color="#facc15" />
+                      ))}
+                    </div>
+                  </td>
+                  <td style={{ maxWidth: '300px', fontSize: '13px' }}>{r.content}</td>
+                  <td>{r.date}</td>
+                  <td className="action-cell">
+                    <button className="act-btn delete" onClick={() => handleDeleteReview(r.id)}><Trash2 size={15} /></button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+
   const renderSettings = () => (
     <div className="settings-container">
       <div className="settings-card">
@@ -870,6 +952,7 @@ const AdminPanel = () => {
             { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
             { id: 'products', label: 'Products', icon: Package },
             { id: 'customers', label: 'Customers', icon: Users },
+            { id: 'reviews', label: 'Reviews', icon: Star },
             { id: 'settings', label: 'Settings', icon: Settings },
           ].map(({ id, label, icon: Icon }) => (
             <button
@@ -907,6 +990,7 @@ const AdminPanel = () => {
           {activeTab === 'dashboard' && renderDashboard()}
           {activeTab === 'products' && renderProducts()}
           {activeTab === 'customers' && renderCustomers()}
+          {activeTab === 'reviews' && renderReviews()}
           {activeTab === 'settings' && renderSettings()}
         </div>
       </main>
