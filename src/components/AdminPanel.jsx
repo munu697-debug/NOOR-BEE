@@ -228,18 +228,29 @@ const AdminPanel = () => {
       updatedAt: new Date().toISOString()
     };
 
-    if (editingProduct) {
-      await set(ref(db, `products/${editingProduct.id}`), payload);
-    } else {
-      payload.createdAt = new Date().toISOString();
-      await push(ref(db, 'products'), payload);
+    try {
+      if (editingProduct) {
+        await set(ref(db, `products/${editingProduct.id}`), payload);
+      } else {
+        payload.createdAt = new Date().toISOString();
+        await push(ref(db, 'products'), payload);
+      }
+      setShowProductForm(false);
+      alert('Product saved successfully!');
+    } catch (err) {
+      console.error("Save error:", err);
+      alert('Failed to save product: ' + err.message);
     }
-    setShowProductForm(false);
   };
 
   const handleDeleteProduct = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
-      await remove(ref(db, `products/${id}`));
+      try {
+        await remove(ref(db, `products/${id}`));
+        alert('Product deleted.');
+      } catch (err) {
+        alert('Delete failed: ' + err.message);
+      }
     }
   };
 
@@ -827,7 +838,12 @@ const AdminPanel = () => {
               onChange={async (e) => {
                 const val = e.target.checked;
                 setFestiveSectionEnabled(val);
-                await set(ref(db, 'settings/festiveSectionEnabled'), val);
+                try {
+                  await set(ref(db, 'settings/festiveSectionEnabled'), val);
+                } catch (err) {
+                  alert('Failed to update setting: ' + err.message);
+                  setFestiveSectionEnabled(!val);
+                }
               }}
             />
             <span className="slider round"></span>

@@ -12,21 +12,28 @@ const PackagesSection = () => {
     const sectionRef = useRef(null);
 
     useEffect(() => {
-        // Fetch Settings
+        // 1. Listen for Settings
         const settingsRef = ref(db, 'settings/festiveSectionEnabled');
-        onValue(settingsRef, (snapshot) => {
-            if (snapshot.exists()) setFestiveEnabled(snapshot.val());
+        const unsubSettings = onValue(settingsRef, (snapshot) => {
+            setFestiveEnabled(!!snapshot.val()); // Use !! to ensure boolean even if null
         });
 
-        // Fetch Products
+        // 2. Listen for Products
         const productsRef = ref(db, 'products');
-        onValue(productsRef, (snapshot) => {
+        const unsubProducts = onValue(productsRef, (snapshot) => {
             if (snapshot.exists()) {
                 const data = snapshot.val();
                 const list = Object.entries(data).map(([id, val]) => ({ id, ...val }));
                 setAllProducts(list);
+            } else {
+                setAllProducts([]);
             }
         });
+
+        return () => {
+            unsubSettings();
+            unsubProducts();
+        };
     }, []);
 
     useEffect(() => {
