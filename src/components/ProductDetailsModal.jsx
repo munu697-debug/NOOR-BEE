@@ -92,15 +92,11 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
                 <div className="shopify-page-wrapper">
                     {/* Header inside modal to look like a full page */}
                     <header className="shopify-header">
-                        <div className="shopify-header-icons left">
-                            <Search size={20} strokeWidth={1.5} />
-                        </div>
                         <div className="shopify-logo">
-                            <img src="/images/logo/logo.png" alt="Noor Bee" />
+                            {/* Logo removed as requested */}
                         </div>
                         <div className="shopify-header-icons right">
-                            <User size={20} strokeWidth={1.5} />
-                            <ShoppingBag size={20} strokeWidth={1.5} onClick={() => setIsCartOpen(true)} style={{cursor: 'pointer'}}/>
+                            {/* Icons removed as requested */}
                         </div>
                         <button className="shopify-close" onClick={onClose}>
                             <X size={28} strokeWidth={1.5} />
