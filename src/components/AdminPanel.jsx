@@ -787,7 +787,26 @@ const AdminPanel = () => {
         </form>
       </div>
 
-      {/* Admin Info Card */}
+      <div className="settings-card">
+        <div className="settings-card-header">
+          <Users size={22} className="settings-icon" />
+          <div>
+            <h3>Admin Account</h3>
+            <p>Your current admin details</p>
+          </div>
+        </div>
+        <div className="settings-info-row">
+          <span>Email</span>
+          <strong>{auth.currentUser?.email || 'admin@noorbee.com'}</strong>
+        </div>
+        <div className="settings-info-row">
+          <span>Role</span>
+          <strong>Super Admin</strong>
+        </div>
+        <div className="settings-info-row">
+          <span>Store</span>
+          <strong>Noor Bee</strong>
+        </div>
       </div>
 
       {/* Website Controls */}
