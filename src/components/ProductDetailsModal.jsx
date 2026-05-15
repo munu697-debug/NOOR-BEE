@@ -193,27 +193,34 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
                             <div className="reviews-summary-box">
                                 <div className="reviews-average">
                                     <div className="stars">
-                                        <Star size={20} fill="#facc15" color="#facc15" />
-                                        <Star size={20} fill="#facc15" color="#facc15" />
-                                        <Star size={20} fill="#facc15" color="#facc15" />
-                                        <Star size={20} fill="#facc15" color="#facc15" />
-                                        <Star size={20} fill="#facc15" color="#facc15" />
+                                        {[...Array(5)].map((_, i) => {
+                                            const avg = submittedReviews.length > 0 
+                                                ? submittedReviews.reduce((acc, r) => acc + r.rating, 0) / submittedReviews.length 
+                                                : 5;
+                                            return <Star key={i} size={20} fill={i < Math.round(avg) ? "#facc15" : "none"} color="#facc15" />;
+                                        })}
                                     </div>
-                                    <p>5.00 out of 5</p>
-                                    <p className="based-on">Based on 2 reviews <Check size={14}/></p>
+                                    <p>{submittedReviews.length > 0 
+                                        ? (submittedReviews.reduce((acc, r) => acc + r.rating, 0) / submittedReviews.length).toFixed(2) 
+                                        : "5.00"} out of 5</p>
+                                    <p className="based-on">Based on {submittedReviews.length} reviews <Check size={14}/></p>
                                 </div>
                                 <div className="reviews-bars">
-                                    {[5,4,3,2,1].map(num => (
-                                        <div key={num} className="bar-row">
-                                            <div className="stars-small">
-                                                {[...Array(5)].map((_, i) => <Star key={i} size={12} fill={i < num ? "#facc15" : "none"} color="#facc15"/>)}
+                                    {[5,4,3,2,1].map(num => {
+                                        const count = submittedReviews.filter(r => r.rating === num).length;
+                                        const percent = submittedReviews.length > 0 ? (count / submittedReviews.length) * 100 : 0;
+                                        return (
+                                            <div key={num} className="bar-row">
+                                                <div className="stars-small">
+                                                    {[...Array(5)].map((_, i) => <Star key={i} size={12} fill={i < num ? "#facc15" : "none"} color="#facc15"/>)}
+                                                </div>
+                                                <div className="bar-bg">
+                                                    <div className="bar-fill" style={{width: `${percent}%`}}></div>
+                                                </div>
+                                                <span className="count">{count}</span>
                                             </div>
-                                            <div className="bar-bg">
-                                                <div className="bar-fill" style={{width: num === 5 ? '100%' : '0%'}}></div>
-                                            </div>
-                                            <span className="count">{num === 5 ? '2' : '0'}</span>
-                                        </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                                 <div className="reviews-action">
                                     <button className="write-review-btn" onClick={() => setIsReviewModalOpen(true)}>
@@ -238,22 +245,9 @@ const ProductDetailsModal = ({ product, isOpen, onClose }) => {
                                     </div>
                                 ))}
 
-                                <div className="review-card">
-                                    <div className="stars"><Star size={14} fill="#facc15" color="#facc15" /><Star size={14} fill="#facc15" color="#facc15" /><Star size={14} fill="#facc15" color="#facc15" /><Star size={14} fill="#facc15" color="#facc15" /><Star size={14} fill="#facc15" color="#facc15" /></div>
-                                    <div className="review-header">
-                                        <div className="reviewer"><User size={16}/> Anu prince <span className="verified-badge">Verified</span></div>
-                                        <span className="date">01/24/2026</span>
-                                    </div>
-                                    <p className="review-text">Super and very tasty</p>
-                                </div>
-                                <div className="review-card">
-                                    <div className="stars"><Star size={14} fill="#facc15" color="#facc15" /><Star size={14} fill="#facc15" color="#facc15" /><Star size={14} fill="#facc15" color="#facc15" /><Star size={14} fill="#facc15" color="#facc15" /><Star size={14} fill="#facc15" color="#facc15" /></div>
-                                    <div className="review-header">
-                                        <div className="reviewer"><User size={16}/> Anonymous <span className="verified-badge">Verified</span></div>
-                                        <span className="date">01/08/2026</span>
-                                    </div>
-                                    <p className="review-text">Great taste, good for health</p>
-                                </div>
+                                {submittedReviews.length === 0 && (
+                                    <p style={{ textAlign: 'center', color: '#666', padding: '20px' }}>No reviews yet. Be the first to review!</p>
+                                )}
                             </div>
                         </div>
 
