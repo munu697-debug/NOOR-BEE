@@ -31,12 +31,13 @@ const AdminPanel = () => {
   const [customers, setCustomers] = useState([]);
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [festiveSectionEnabled, setFestiveSectionEnabled] = useState(false);
 
   // Product form
   const [showProductForm, setShowProductForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [productForm, setProductForm] = useState({
-    title: '', price: '', description: '', category: '', stock: '', badge: '', sizes: '', image: ''
+    title: '', price: '', description: '', category: '', stock: '', badge: '', sizes: '', image: '', isFestive: false
   });
   const [imageUploading, setImageUploading] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
@@ -60,6 +61,18 @@ const AdminPanel = () => {
     });
     return () => unsub();
   }, []);
+
+  // Load Settings
+  useEffect(() => {
+    if (!isAdminLoggedIn) return;
+    const settingsRef = ref(db, 'settings/festiveSectionEnabled');
+    const unsub = onValue(settingsRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setFestiveSectionEnabled(snapshot.val());
+      }
+    });
+    return () => unsub();
+  }, [isAdminLoggedIn]);
 
   // Load products from Firebase
   useEffect(() => {
@@ -154,7 +167,7 @@ const AdminPanel = () => {
   // ── Products CRUD ──────────────────────────────────────────────────────────
   const openAddProduct = () => {
     setEditingProduct(null);
-    setProductForm({ title: '', price: '', description: '', category: '', stock: '', badge: '', sizes: '', image: '' });
+    setProductForm({ title: '', price: '', description: '', category: '', stock: '', badge: '', sizes: '', image: '', isFestive: false });
     setImagePreview('');
     setShowProductForm(true);
   };
@@ -169,7 +182,8 @@ const AdminPanel = () => {
       stock: product.stock || '',
       badge: product.badge || '',
       sizes: (product.sizes || []).join(', '),
-      image: product.image || ''
+      image: product.image || '',
+      isFestive: !!product.isFestive
     });
     setImagePreview(product.image || '');
     setShowProductForm(true);
@@ -607,6 +621,17 @@ const AdminPanel = () => {
             </div>
           </div>
 
+          <div className="cms-form-group checkbox-group">
+            <label className="checkbox-label">
+              <input 
+                type="checkbox" 
+                checked={productForm.isFestive} 
+                onChange={e => setProductForm({...productForm, isFestive: e.target.checked})} 
+              />
+              <span>Mark as Festive / Bulk Package Product</span>
+            </label>
+          </div>
+
           {/* ── Cloudinary Image Upload ── */}
           <div className="cms-form-group">
             <label>Product Image</label>
@@ -763,25 +788,31 @@ const AdminPanel = () => {
       </div>
 
       {/* Admin Info Card */}
+      </div>
+
+      {/* Website Controls */}
       <div className="settings-card">
         <div className="settings-card-header">
-          <Users size={22} className="settings-icon" />
+          <RefreshCw size={22} className="settings-icon" />
           <div>
-            <h3>Admin Account</h3>
-            <p>Your current admin details</p>
+            <h3>Website Sections</h3>
+            <p>Toggle visibility of special sections</p>
           </div>
         </div>
         <div className="settings-info-row">
-          <span>Email</span>
-          <strong>{auth.currentUser?.email || ADMIN_EMAIL}</strong>
-        </div>
-        <div className="settings-info-row">
-          <span>Role</span>
-          <strong>Super Admin</strong>
-        </div>
-        <div className="settings-info-row">
-          <span>Store</span>
-          <strong>Noor Bee</strong>
+          <span>Show Festive & Bulk Packages Section</span>
+          <label className="switch">
+            <input 
+              type="checkbox" 
+              checked={festiveSectionEnabled} 
+              onChange={async (e) => {
+                const val = e.target.checked;
+                setFestiveSectionEnabled(val);
+                await set(ref(db, 'settings/festiveSectionEnabled'), val);
+              }}
+            />
+            <span className="slider round"></span>
+          </label>
         </div>
       </div>
     </div>

@@ -1,16 +1,45 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { db } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 // Reusing exact ProductsSection styles to make it identically Apple-like
 import './ProductsSection.css';
 
-const packages = [
-    { id: 1, title: 'Marjan Honey Mix 1kg', subtitle: '1kg Honey', price: '₹999', image: '/raw_honey_jar.png' },
-    { id: 2, title: 'Marjan Honey Mix 500g', subtitle: '500g Honey', price: '₹549', image: '/raw_honey_jar.png' },
-    { id: 3, title: 'Marjan Honey Mix 250g', subtitle: '250g Honey', price: '₹399', image: '/raw_honey_jar.png' }
-];
-
 const PackagesSection = () => {
+    const [festiveEnabled, setFestiveEnabled] = useState(false);
+    const [allProducts, setAllProducts] = useState([]);
+    const [displayProducts, setDisplayProducts] = useState([]);
     const sectionRef = useRef(null);
+
+    useEffect(() => {
+        // Fetch Settings
+        const settingsRef = ref(db, 'settings/festiveSectionEnabled');
+        onValue(settingsRef, (snapshot) => {
+            if (snapshot.exists()) setFestiveEnabled(snapshot.val());
+        });
+
+        // Fetch Products
+        const productsRef = ref(db, 'products');
+        onValue(productsRef, (snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                const list = Object.entries(data).map(([id, val]) => ({ id, ...val }));
+                setAllProducts(list);
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        if (festiveEnabled) {
+            // Show Festive Products
+            const festive = allProducts.filter(p => p.isFestive);
+            setDisplayProducts(festive);
+        } else {
+            // Show 3 regular products (relevant)
+            const regular = allProducts.filter(p => !p.isFestive).slice(0, 3);
+            setDisplayProducts(regular);
+        }
+    }, [festiveEnabled, allProducts]);
 
     const { scrollYProgress } = useScroll({
         target: sectionRef,
@@ -44,18 +73,21 @@ const PackagesSection = () => {
                     style={{ opacity: headerOpacity, scale: headerScale }}
                 >
                     <h2 className="products-title" style={{ fontSize: '42px', lineHeight: 1.2 }}>
-                        Special Festive & Bulk Packages<br />
-                        <span style={{ fontSize: '20px', color: '#888', fontWeight: 500 }}>Available on Request</span>
+                        {festiveEnabled ? "Special Festive & Bulk Packages" : "Our Best Sellers"}
+                        <br />
+                        <span style={{ fontSize: '20px', color: '#888', fontWeight: 500 }}>
+                            {festiveEnabled ? "Available on Request" : "Premium Quality Guaranteed"}
+                        </span>
                     </h2>
                     <div className="title-underline"></div>
                 </motion.div>
 
                 <div className="products-grid-3">
-                    {packages.map((p, index) => (
+                    {displayProducts.map((p, index) => (
                         <motion.div
                             key={p.id}
                             className="prod-card"
-                            style={{ y: cardYTransforms[index] }}
+                            style={{ y: cardYTransforms[index] || 0 }}
                         >
                             <div className="prod-img-wrapper">
                                 <motion.img
@@ -67,9 +99,9 @@ const PackagesSection = () => {
                             </div>
                             <div className="prod-content">
                                 <h3 className="prod-title">{p.title}</h3>
-                                <p style={{ color: '#888', margin: 0, fontSize: '14px', marginBottom: '15px' }}>{p.subtitle}</p>
+                                <p style={{ color: '#888', margin: 0, fontSize: '14px', marginBottom: '15px' }}>{p.category || 'Pure Raw Honey'}</p>
                                 <div className="prod-bottom">
-                                    <span className="prod-price">{p.price}</span>
+                                    <span className="prod-price">₹{p.price}</span>
                                     <button className="prod-add-btn">Add to Cart</button>
                                 </div>
                             </div>
