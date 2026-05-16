@@ -10,12 +10,11 @@ const categories = [
     { id: 2, name: 'Clover', icon: '/images/products/product2.png' },
     { id: 3, name: 'Sidr', icon: '/images/products/product3.png' },
     { id: 4, name: 'Alfalfa', icon: '/images/products/product4.png' },
-    { id: 5, name: 'Sidr', icon: '/images/products/product2.png' },
 ];
 
 const MobileDashboard = () => {
     const [products, setProducts] = useState([]);
-    const [user, setUser] = useState({ name: 'Alex Polly' }); // Defaulting to Alex Polly as requested for psychology
+    const [user, setUser] = useState({ name: 'Munavvir' });
 
     useEffect(() => {
         const productsRef = ref(db, 'products');
@@ -28,7 +27,7 @@ const MobileDashboard = () => {
         });
 
         const unsubAuth = auth.onAuthStateChanged((u) => {
-            if (u) setUser({ name: u.displayName || 'Alex Polly', photo: u.photoURL });
+            if (u) setUser({ name: u.displayName || 'Munavvir', photo: u.photoURL });
         });
 
         return () => { unsub(); unsubAuth(); };
@@ -39,18 +38,26 @@ const MobileDashboard = () => {
             {/* 2. WELCOME HEADER SECTION */}
             <header className="mobile-dash-header">
                 <div className="user-profile-dash">
-                    <div className="avatar-dash">
-                        {user.photo ? <img src={user.photo} alt="Avatar" /> : <img src="/images/others/user-avatar.png" alt="Avatar" onError={(e) => e.target.src='https://ui-avatars.com/api/?name=Alex+Polly&background=f1a100&color=fff'} />}
+                    <div className="avatar-dash-container">
+                        {user.photo ? (
+                            <img src={user.photo} alt="Avatar" className="avatar-img-dash" />
+                        ) : (
+                            <div className="avatar-placeholder-dash">
+                                <img src="/images/logo/logo.png" alt="Logo" style={{ width: '100%', opacity: 0.8 }} />
+                            </div>
+                        )}
                     </div>
                     <div className="welcome-text-dash">
                         <span className="welcome-label">Welcome Back</span>
                         <strong className="user-name-dash">{user.name}</strong>
                     </div>
                 </div>
-                <button className="notif-btn-dash" aria-label="Notifications">
-                    <Bell size={24} strokeWidth={1.5} />
-                    <span className="notif-dot"></span>
-                </button>
+                <div className="header-actions-dash">
+                    <button className="notif-btn-dash">
+                        <Bell size={24} />
+                        <span className="notif-dot"></span>
+                    </button>
+                </div>
             </header>
 
             {/* 3. SEARCH BAR SECTION */}
@@ -69,16 +76,15 @@ const MobileDashboard = () => {
                 className="dash-hero-card"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
             >
                 <div className="hero-card-content">
                     <h2 className="promo-title">Pure Honey Deals</h2>
                     <p className="promo-desc">Fresh, tasty honey at great prices.</p>
-                    <button className="shop-now-dash-btn">Shop Now</button>
+                    <button className="shop-now-dash-btn" onClick={() => window.location.hash = '#shop'}>Shop Now</button>
                     <div className="hero-special-badge">SPECIAL OFFER</div>
                 </div>
                 <div className="hero-card-img-wrap">
-                    <img src="/images/logo/logo.png" alt="Honey Bee" className="dash-hero-bee-img" />
+                    <img src="/images/logo/logo.png" alt="Bee" className="dash-hero-bee-img" />
                 </div>
             </motion.div>
 
@@ -90,19 +96,15 @@ const MobileDashboard = () => {
                 </div>
                 <div className="dash-category-scroll">
                     {categories.map((cat, idx) => (
-                        <motion.div 
-                            key={idx} 
-                            className={`dash-cat-item ${idx === 0 ? 'active' : ''}`}
-                            whileTap={{ scale: 0.95 }}
-                        >
+                        <div key={cat.id} className={`dash-cat-item ${idx === 0 ? 'active' : ''}`}>
                             <div className="dash-cat-icon-circle">
-                                <img src={cat.icon} alt={cat.name} />
+                                <img src={cat.icon} alt={cat.name} onError={(e) => e.target.src='/images/logo/logo.png'} />
                             </div>
                             <span className="cat-name-dash">{cat.name}</span>
                             <div className="cat-arrow-circle">
-                                <ChevronRight size={14} />
+                                <ChevronRight size={12} />
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </section>
@@ -115,8 +117,8 @@ const MobileDashboard = () => {
                 </div>
                 <div className="dash-products-grid">
                     {products.map(p => (
-                        <div key={p.id} className="dash-prod-card">
-                            <button className="dash-fav-heart-btn">
+                        <div key={p.id} className="dash-prod-card" onClick={() => window.location.hash = `#shop`}>
+                            <button className="dash-fav-heart-btn" onClick={(e) => e.stopPropagation()}>
                                 <Heart size={16} />
                             </button>
                             <div className="dash-prod-img-box">
