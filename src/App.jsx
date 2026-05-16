@@ -21,7 +21,7 @@ import SplashScreen from './components/SplashScreen';
 import MobileBottomNav from './components/MobileBottomNav';
 import MobileDashboard from './components/MobileDashboard';
 import MobileMenu from './components/MobileMenu';
-import { SpeedInsights } from '@vercelspeed-insights/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import './App.css';
 
 function App() {
@@ -33,28 +33,24 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    // Check if user has seen the NEW onboarding
-    const onboarded = localStorage.getItem('noorbee_onboarded_v2');
+    // Force reset for users with old storage
+    const onboarded = localStorage.getItem('noorbee_onboarded_v4');
     if (onboarded) setIsOnboarded(true);
 
     const checkMobile = () => {
       const isMob = window.innerWidth <= 768;
       setIsMobile(isMob);
-      if (!isMob) setIsAppLoading(false); // Desktop doesn't load splash
+      
+      // If we are on mobile and not onboarded, show splash
+      if (isMob && !onboarded) {
+          setIsAppLoading(true);
+      } else {
+          setIsAppLoading(false);
+      }
     };
     
     checkMobile();
     window.addEventListener('resize', checkMobile);
-
-    // Initial loading for mobile
-    if (window.innerWidth <= 768) {
-      if (!onboarded) {
-        setIsAppLoading(true);
-      } else {
-        setIsAppLoading(false);
-      }
-    }
-    
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -66,7 +62,6 @@ function App() {
       else if (hash === '#profile') setCurrentPage('profile');
       else if (hash === '#admin') setCurrentPage('admin');
       else if (hash === '#values' || hash === '#health' || hash === '#mission' || hash === '#vision') {
-          // These will stay on home but scroll to section
           setCurrentPage('home');
           setTimeout(() => {
               const el = document.getElementById(hash.substring(1));
@@ -84,7 +79,7 @@ function App() {
   const handleOnboardingComplete = () => {
     setIsOnboarded(true);
     setIsAppLoading(false);
-    localStorage.setItem('noorbee_onboarded_v2', 'true');
+    localStorage.setItem('noorbee_onboarded_v4', 'true');
   };
 
   if (currentPage === 'admin') {
@@ -101,10 +96,10 @@ function App() {
         <SplashScreen onComplete={handleOnboardingComplete} />
       ) : (
         <motion.div 
-          className="app-container"
+          className={`app-container ${isMobile ? 'mobile-view-active' : ''}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
         >
           <NavBar 
             page={currentPage} 
@@ -115,7 +110,7 @@ function App() {
           <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
           {isMobile && currentPage === 'home' ? (
-            <main className="main-content">
+            <main className="main-content mobile-home">
                 <MobileDashboard />
                 <div id="values"><CoreValuesSection /></div>
                 <div id="health"><HealthBenefitsSection /></div>
@@ -124,7 +119,7 @@ function App() {
                 <Footer />
             </main>
           ) : currentPage === 'home' ? (
-            <main className="main-content">
+            <main className="main-content desktop-home">
               <HeroSection />
               <TrustSection />
               <HealthBenefitsSection />
