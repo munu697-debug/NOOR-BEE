@@ -38,7 +38,7 @@ function App() {
     if (window.innerWidth <= 768) {
       const timer = setTimeout(() => {
         setIsAppLoading(false);
-      }, 2800);
+      }, 3000);
       return () => {
         clearTimeout(timer);
         window.removeEventListener('resize', checkMobile);

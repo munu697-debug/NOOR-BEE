@@ -11,6 +11,7 @@ const NavBar = ({ page = 'home', onSearch }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const cartCount = getTotalItems();
+  const wishlistCount = wishlistItems?.length || 0;
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
