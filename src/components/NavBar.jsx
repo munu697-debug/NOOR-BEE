@@ -6,7 +6,7 @@ import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import './NavBar.css';
 
-const NavBar = ({ page = 'home', onSearch }) => {
+const NavBar = ({ page = 'home', onSearch, onMenuOpen }) => {
   const { getTotalItems, setIsCartOpen, wishlistItems, setIsWishlistOpen } = useCart();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -92,7 +92,11 @@ const NavBar = ({ page = 'home', onSearch }) => {
             <span className="cart-badge">{cartCount}</span>
           </button>
 
-          <button className="icon-btn mobile-only hamburger" aria-label="Menu">
+          <button 
+            className="icon-btn mobile-only hamburger" 
+            aria-label="Menu"
+            onClick={onMenuOpen}
+          >
             <Menu size={24} />
           </button>
         </div>
