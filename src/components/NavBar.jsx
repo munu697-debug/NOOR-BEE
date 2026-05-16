@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Heart, ShoppingCart, User, Search, Menu } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useCart } from '../context/CartContext';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -26,7 +27,6 @@ const NavBar = ({ page = 'home', onSearch }) => {
         <div className="nav-logo">
           <a href="/">
             <img src="/images/logo/logo.png" alt="Noor Bee Logo" className="nav-logo-icon" />
-            <span className="nav-brand-name">NOOR BEE</span>
           </a>
         </div>
 
