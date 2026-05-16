@@ -51,7 +51,7 @@ const UserProfile = () => {
             const data = snapshot.val();
             setFormData(prev => ({
               ...prev,
-              name: data.name || user.displayName || '',
+              name: data.name || user.displayName || 'Noorbee Customer',
               email: user.email || '',
               phone: data.phone || '',
               address: data.address || '',
@@ -72,7 +72,7 @@ const UserProfile = () => {
             
             setFormData(prev => ({
               ...prev,
-              name: user.displayName || '',
+              name: user.displayName || 'Noorbee Customer',
               email: user.email || ''
             }));
           }

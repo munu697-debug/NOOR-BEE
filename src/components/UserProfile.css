@@ -252,7 +252,13 @@
 .input-icon {
     position: absolute;
     left: 16px;
-    color: #999;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #b3851b; /* Gold icon */
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .input-wrapper input {
@@ -262,8 +268,9 @@
     border-radius: 12px;
     font-family: var(--font-body);
     font-size: 15px;
-    color: var(--color-charcoal-dark);
-    transition: border-color 0.3s ease;
+    color: #333; /* Ensuring dark text for visibility */
+    transition: all 0.3s ease;
+    background: #fff;
 }
 
 .input-wrapper input:focus {
@@ -298,14 +305,25 @@
 @media (max-width: 768px) {
     .profile-container {
         grid-template-columns: 1fr;
+        padding-top: 100px;
     }
     
+    .profile-content {
+        padding: 24px;
+    }
+
     .profile-form, .form-row {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
     
     .auth-card {
-        padding: 30px 20px;
+        padding: 32px 24px;
+    }
+
+    .save-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
 

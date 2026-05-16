@@ -7,10 +7,11 @@ import { useCart } from '../context/CartContext';
 import './ProductsSection.css';
 import ProductDetailsModal from './ProductDetailsModal';
 
-const ProductsSection = () => {
+const ProductsSection = ({ searchQuery = '' }) => {
     const { toggleWishlist, isInWishlist } = useCart();
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -27,6 +28,19 @@ const ProductsSection = () => {
         });
         return () => unsub();
     }, []);
+
+    useEffect(() => {
+        if (!searchQuery) {
+            setFilteredProducts(products);
+        } else {
+            const query = searchQuery.toLowerCase();
+            const filtered = products.filter(p => 
+                p.title?.toLowerCase().includes(query) || 
+                p.category?.toLowerCase().includes(query)
+            );
+            setFilteredProducts(filtered);
+        }
+    }, [searchQuery, products]);
     return (
         <section className="products-section" id="products" style={{ paddingTop: '50px' }}>
             <div className="products-container">
@@ -42,7 +56,7 @@ const ProductsSection = () => {
                 </motion.div>
 
                 <div className="products-grid-mobile">
-                    {products.map((p, index) => (
+                    {filteredProducts.map((p, index) => (
                         <motion.div
                             key={p.id}
                             className="prod-card-app"
@@ -58,7 +72,7 @@ const ProductsSection = () => {
                                     className={`prod-fav-app ${isInWishlist(p.id) ? 'active' : ''}`}
                                     onClick={(e) => { e.stopPropagation(); toggleWishlist(p); }}
                                 >
-                                    <Heart size={18} fill={isInWishlist(p.id) ? "currentColor" : "none"} />
+                                    <Heart size={16} fill={isInWishlist(p.id) ? "currentColor" : "none"} />
                                 </button>
                                 {p.badge && <span className="prod-badge-app">{p.badge}</span>}
                             </div>
@@ -66,14 +80,21 @@ const ProductsSection = () => {
                                 <h3 className="prod-name-app">{p.title}</h3>
                                 <div className="prod-meta-app">
                                     <span className="prod-price-app">₹{parseFloat(p.price || 0).toFixed(0)}</span>
-                                    <button className="prod-add-app" onClick={(e) => { e.stopPropagation(); setSelectedProduct(p); }}>
-                                        Add
-                                    </button>
+                                    <div className="prod-rating-app">
+                                        <span className="star-icon">⭐</span>
+                                        <span>{p.rating || '4.8'}</span>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
                     ))}
                 </div>
+                
+                {filteredProducts.length === 0 && !loading && (
+                    <div style={{ textAlign: 'center', padding: '60px 0' }}>
+                        <p style={{ color: '#888', fontSize: '18px' }}>No products found matching "{searchQuery}"</p>
+                    </div>
+                )}
 
 
 

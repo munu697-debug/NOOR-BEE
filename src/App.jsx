@@ -26,13 +26,28 @@ import './App.css';
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isAppLoading, setIsAppLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    // Splash screen timer
-    const timer = setTimeout(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    // Splash screen timer - only if mobile
+    if (window.innerWidth <= 768) {
+      const timer = setTimeout(() => {
+        setIsAppLoading(false);
+      }, 2800);
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('resize', checkMobile);
+      };
+    } else {
       setIsAppLoading(false);
-    }, 2800); // 2s duration + animation buffer
-    return () => clearTimeout(timer);
+    }
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   useEffect(() => {
@@ -75,7 +90,7 @@ function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <NavBar page={currentPage} />
+          <NavBar page={currentPage} onSearch={setSearchQuery} />
 
           {currentPage === 'home' ? (
             <main className="main-content">
@@ -91,7 +106,7 @@ function App() {
             </main>
           ) : currentPage === 'shop' ? (
             <main className="main-content shop-page">
-              <ProductsSection />
+              <ProductsSection searchQuery={searchQuery} />
             </main>
           ) : currentPage === 'profile' ? (
             <main className="main-content profile-page">

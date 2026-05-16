@@ -5,11 +5,12 @@ import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import './NavBar.css';
 
-const NavBar = ({ page = 'home' }) => {
+const NavBar = ({ page = 'home', onSearch }) => {
   const { getTotalItems, setIsCartOpen, wishlistItems, setIsWishlistOpen } = useCart();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const cartCount = getTotalItems();
-  const wishlistCount = wishlistItems?.length || 0;
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -36,7 +37,35 @@ const NavBar = ({ page = 'home' }) => {
         </nav>
 
         <div className="nav-actions">
-          <button className="icon-btn search-mobile" aria-label="Search">
+          {isSearchOpen && (
+            <motion.div 
+              className="search-container-nav"
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 'auto', opacity: 1 }}
+            >
+              <input 
+                type="text" 
+                placeholder="Search products..." 
+                className="nav-search-input"
+                autoFocus
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  onSearch?.(e.target.value);
+                  if (e.target.value && window.location.hash !== '#shop') {
+                    window.location.hash = '#shop';
+                  }
+                }}
+                onBlur={() => !searchQuery && setIsSearchOpen(false)}
+              />
+            </motion.div>
+          )}
+          
+          <button 
+            className="icon-btn search-btn" 
+            aria-label="Search"
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+          >
             <Search size={20} />
           </button>
           
