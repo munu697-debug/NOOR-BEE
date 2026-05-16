@@ -18,7 +18,8 @@ import WishlistModal from './components/WishlistModal';
 import UserProfile from './components/UserProfile';
 import AdminPanel from './components/AdminPanel';
 import Footer from './components/Footer';
-import Preloader from './components/Preloader';
+import SplashScreen from './components/SplashScreen';
+import MobileBottomNav from './components/MobileBottomNav';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import './App.css';
 
@@ -27,10 +28,10 @@ function App() {
   const [isAppLoading, setIsAppLoading] = useState(true);
 
   useEffect(() => {
-    // Artificial delay to allow animation assets to begin buffering
+    // Splash screen timer
     const timer = setTimeout(() => {
       setIsAppLoading(false);
-    }, 3500);
+    }, 2800); // 2s duration + animation buffer
     return () => clearTimeout(timer);
   }, []);
 
@@ -65,53 +66,49 @@ function App() {
 
   return (
     <CartProvider>
-      <div className="app-container">
-        <NavBar page={currentPage} />
+      {isAppLoading ? (
+        <SplashScreen onComplete={() => setIsAppLoading(false)} />
+      ) : (
+        <motion.div 
+          className="app-container"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <NavBar page={currentPage} />
 
-        {currentPage === 'home' ? (
-          <main className="main-content">
-            {/* 1. Header & Hero Section */}
-            <HeroSection />
+          {currentPage === 'home' ? (
+            <main className="main-content">
+              <HeroSection />
+              <TrustSection />
+              <HealthBenefitsSection />
+              <PackagesSection />
+              <TestimonialsSection />
+              <CoreValuesSection />
+              <CraftsmanshipSection /> 
+              <FAQSection />
+              <Footer />
+            </main>
+          ) : currentPage === 'shop' ? (
+            <main className="main-content shop-page">
+              <ProductsSection />
+            </main>
+          ) : currentPage === 'profile' ? (
+            <main className="main-content profile-page">
+              <UserProfile />
+            </main>
+          ) : (
+            <main className="main-content contact-page">
+              <ContactSection />
+            </main>
+          )}
 
-            {/* 2. Trust Banner (Infinite Marquee) */}
-            <TrustSection />
-
-            {/* 3. Health Benefits */}
-            <HealthBenefitsSection />
-
-            {/* 4. Bundles & Gifting */}
-            <PackagesSection />
-
-            {/* 6. Social Proof */}
-            <TestimonialsSection />
-
-            {/* 7. Brand Story */}
-            <CoreValuesSection />
-            <CraftsmanshipSection /> 
-
-            {/* 8. FAQ */}
-            <FAQSection />
-
-            <Footer />
-          </main>
-        ) : currentPage === 'shop' ? (
-          <main className="main-content" style={{ paddingTop: '100px', minHeight: '80vh' }}>
-            <ProductsSection />
-          </main>
-        ) : currentPage === 'profile' ? (
-          <main className="main-content" style={{ paddingTop: '80px', minHeight: '80vh' }}>
-            <UserProfile />
-          </main>
-        ) : (
-          <main className="main-content contact-page">
-            <ContactSection />
-          </main>
-        )}
-
-        <WishlistModal />
-        <CartModal />
-        <SpeedInsights />
-      </div>
+          <MobileBottomNav activeTab={currentPage} />
+          <WishlistModal />
+          <CartModal />
+          <SpeedInsights />
+        </motion.div>
+      )}
     </CartProvider>
   );
 }

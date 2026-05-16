@@ -248,6 +248,114 @@
     filter: brightness(0.5);
 }
 
+/* App-style Mobile Grid */
+.products-grid-mobile {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.prod-card-app {
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    cursor: pointer;
+}
+
+.prod-img-wrap-app {
+    position: relative;
+    aspect-ratio: 1/1.1;
+    overflow: hidden;
+    background: #fcfcfc;
+}
+
+.prod-img-app {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.prod-card-app:hover .prod-img-app {
+    transform: scale(1.05);
+}
+
+.prod-fav-app {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    z-index: 2;
+}
+
+.prod-fav-app.active {
+    color: #e53e3e;
+}
+
+.prod-badge-app {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(179, 133, 27, 0.9);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.prod-info-app {
+    padding: 20px;
+}
+
+.prod-name-app {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+}
+
+.prod-meta-app {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.prod-price-app {
+    font-weight: 800;
+    font-size: 18px;
+    color: #b3851b;
+}
+
+.prod-add-app {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.prod-add-app:active {
+    transform: scale(0.95);
+}
+
 @media (max-width: 900px) {
     .products-grid-3 {
         grid-template-columns: 1fr;
@@ -265,10 +373,32 @@
     .wavy-divider {
         top: -59px;
     }
+
+    .products-grid-mobile {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
 }
 
 @media (max-width: 500px) {
     .gallery-grid {
         grid-template-columns: 1fr;
+    }
+
+    .products-grid-mobile {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .prod-card-app {
+        border-radius: 28px;
+    }
+
+    .prod-info-app {
+        padding: 24px;
+    }
+
+    .prod-name-app {
+        font-size: 20px;
     }
 }

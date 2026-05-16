@@ -41,37 +41,34 @@ const ProductsSection = () => {
                     <div className="title-underline"></div>
                 </motion.div>
 
-                <div className="products-grid-3">
+                <div className="products-grid-mobile">
                     {products.map((p, index) => (
                         <motion.div
                             key={p.id}
-                            className="prod-card"
-                            initial={{ opacity: 0, y: 100 }}
+                            className="prod-card-app"
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-5%" }}
-                            transition={{ duration: 0.6, delay: 0.1 + (index * 0.15) }}
+                            viewport={{ once: true, margin: "-10%" }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
                             onClick={() => setSelectedProduct(p)}
-                            style={{ cursor: 'pointer' }}
                         >
-                            <div className="prod-img-wrapper">
+                            <div className="prod-img-wrap-app">
+                                <img src={p.image} alt={p.title} className="prod-img-app" />
                                 <button 
-                                    className={`prod-fav-btn ${isInWishlist(p.id) ? 'active' : ''}`}
+                                    className={`prod-fav-app ${isInWishlist(p.id) ? 'active' : ''}`}
                                     onClick={(e) => { e.stopPropagation(); toggleWishlist(p); }}
-                                    aria-label="Add to Wishlist"
                                 >
-                                    <Heart size={20} fill={isInWishlist(p.id) ? "currentColor" : "none"} />
+                                    <Heart size={18} fill={isInWishlist(p.id) ? "currentColor" : "none"} />
                                 </button>
-                                <motion.img
-                                    src={p.image}
-                                    alt={p.title}
-                                    whileHover={{ scale: 1.08 }}
-                                    transition={{ duration: 0.6, ease: "easeOut" }}
-                                />
+                                {p.badge && <span className="prod-badge-app">{p.badge}</span>}
                             </div>
-                            <div className="prod-content">
-                                <h3 className="prod-title">{p.title}</h3>
-                                <div className="prod-bottom" style={{ justifyContent: 'center' }}>
-                                    <span className="prod-price">₹{parseFloat(p.price || 0).toFixed(2)}</span>
+                            <div className="prod-info-app">
+                                <h3 className="prod-name-app">{p.title}</h3>
+                                <div className="prod-meta-app">
+                                    <span className="prod-price-app">₹{parseFloat(p.price || 0).toFixed(0)}</span>
+                                    <button className="prod-add-app" onClick={(e) => { e.stopPropagation(); setSelectedProduct(p); }}>
+                                        Add
+                                    </button>
                                 </div>
                             </div>
                         </motion.div>

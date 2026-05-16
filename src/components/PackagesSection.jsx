@@ -89,27 +89,25 @@ const PackagesSection = () => {
                     <div className="title-underline"></div>
                 </motion.div>
 
-                <div className="products-grid-3">
+                <div className="products-grid-mobile">
                     {displayProducts.map((p, index) => (
                         <motion.div
                             key={p.id}
-                            className="prod-card"
-                            style={{ y: cardYTransforms[index] || 0 }}
+                            className="prod-card-app"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 }}
                         >
-                            <div className="prod-img-wrapper">
-                                <motion.img
-                                    src={p.image}
-                                    alt={p.title}
-                                    whileHover={{ scale: 1.08 }}
-                                    transition={{ duration: 0.6, ease: "easeOut" }}
-                                />
+                            <div className="prod-img-wrap-app">
+                                <img src={p.image} alt={p.title} className="prod-img-app" />
+                                {p.isFestive && <span className="prod-badge-app">Festive</span>}
                             </div>
-                            <div className="prod-content">
-                                <h3 className="prod-title">{p.title}</h3>
-                                <p style={{ color: '#888', margin: 0, fontSize: '14px', marginBottom: '15px' }}>{p.category || 'Pure Raw Honey'}</p>
-                                <div className="prod-bottom">
-                                    <span className="prod-price">₹{p.price}</span>
-                                    <button className="prod-add-btn">Add to Cart</button>
+                            <div className="prod-info-app">
+                                <h3 className="prod-name-app">{p.title}</h3>
+                                <div className="prod-meta-app">
+                                    <span className="prod-price-app">₹{p.price}</span>
+                                    <button className="prod-add-app">Add</button>
                                 </div>
                             </div>
                         </motion.div>

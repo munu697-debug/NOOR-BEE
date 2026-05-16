@@ -1,0 +1,94 @@
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    height: 65px;
+    background: rgba(15, 15, 15, 0.85); /* Dark premium glass */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(179, 133, 27, 0.2);
+    border-radius: 24px;
+    z-index: 1000;
+    display: none; /* Hidden by default, shown on mobile */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.nav-items-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    padding: 0 10px;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-decoration: none;
+    color: #999;
+    transition: all 0.3s ease;
+    flex: 1;
+    position: relative;
+}
+
+.nav-item.active {
+    color: #b3851b; /* Gold brand color */
+}
+
+.icon-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: #b3851b;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4px;
+    border: 1px solid #000;
+}
+
+.nav-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.active-indicator {
+    position: absolute;
+    top: -8px;
+    width: 25px;
+    height: 2px;
+    background: #b3851b;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(179, 133, 27, 0.5);
+}
+
+@media (max-width: 768px) {
+    .mobile-bottom-nav {
+        display: block;
+    }
+}
+
+/* Ensure main content doesn't get hidden behind the nav */
+@media (max-width: 768px) {
+    .app-container {
+        padding-bottom: 90px;
+    }
+}

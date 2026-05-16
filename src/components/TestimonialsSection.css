@@ -152,11 +152,25 @@
     .testimonials-container {
         flex-direction: column;
         text-align: center;
-        gap: 60px;
+        gap: 30px;
+        padding-bottom: 40px;
     }
 
     .test-image-wrapper {
-        width: 250px;
-        height: 250px;
+        width: 200px;
+        height: 200px;
+    }
+
+    .quote-mark {
+        font-size: 60px;
+        margin-bottom: 20px;
+    }
+
+    .quote-text {
+        font-size: 16px;
+    }
+
+    .testimonials-header h2 {
+        font-size: 28px;
     }
 }

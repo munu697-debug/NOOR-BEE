@@ -3,18 +3,20 @@
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 100;
+    z-index: 1000; /* Higher z-index for app feel */
     border-radius: 100px;
     padding: 6px 24px;
-    transition: top 0.35s ease, bottom 0.35s ease, width 0.35s ease, max-width 0.35s ease, padding 0.35s ease;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .navbar-top {
     top: 15px;
     width: 90%;
     max-width: 1200px;
-    background: rgba(252, 248, 242, 0.85); /* White/cream with transparency */
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(10, 10, 10, 0.7); /* Dark premium glass */
+    border: 1px solid rgba(179, 133, 27, 0.2);
 }
 
 .navbar-hero-floating {
@@ -34,15 +36,23 @@
 }
 
 .nav-logo a {
-    font-family: var(--font-heading);
+    font-family: 'Playfair Display', serif;
     font-size: 24px;
     font-weight: 700;
-    color: var(--color-gold);
-    letter-spacing: 2px;
+    color: #b3851b; /* Gold brand color */
+    letter-spacing: 1px;
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+}
+
+.nav-brand-name {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #b3851b;
+    display: block;
 }
 
 .nav-logo-icon {
@@ -110,29 +120,52 @@
 
 @media (max-width: 768px) {
     .navbar {
-        width: calc(100vw - 24px);
-        max-width: none;
-        padding: 10px 16px;
+        width: 100%;
+        left: 0;
+        transform: none;
+        border-radius: 0;
+        padding: 10px 20px;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        background: rgba(10, 10, 10, 0.8);
     }
 
     .navbar-top {
-        top: 12px;
+        top: 0;
     }
 
-    .navbar-hero-floating {
-        bottom: 18px;
+    .nav-brand-name {
+        font-size: 14px;
     }
 
-    .nav-logo-icon,
-    .navbar-hero-floating .nav-logo-icon {
-        height: 34px;
+    .nav-logo-icon {
+        height: 32px;
     }
 
-    .nav-links {
-        display: none;
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: flex !important;
     }
 
     .nav-actions {
-        gap: 12px;
+        gap: 15px;
+    }
+
+    .search-mobile {
+        color: #b3851b;
+    }
+
+    .hamburger {
+        color: #b3851b;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none !important;
     }
 }
