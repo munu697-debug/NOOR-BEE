@@ -33,19 +33,26 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    // Onboarding check
-    const onboarded = localStorage.getItem('noorbee_onboarded');
+    // Check if user has seen the NEW onboarding
+    const onboarded = localStorage.getItem('noorbee_onboarded_v2');
     if (onboarded) setIsOnboarded(true);
 
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    const checkMobile = () => {
+      const isMob = window.innerWidth <= 768;
+      setIsMobile(isMob);
+      if (!isMob) setIsAppLoading(false); // Desktop doesn't load splash
+    };
+    
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    // Initial loading
-    if (window.innerWidth <= 768 && !onboarded) {
-      setIsAppLoading(true);
-    } else {
-      setIsAppLoading(false);
+    // Initial loading for mobile
+    if (window.innerWidth <= 768) {
+      if (!onboarded) {
+        setIsAppLoading(true);
+      } else {
+        setIsAppLoading(false);
+      }
     }
     
     return () => window.removeEventListener('resize', checkMobile);
@@ -77,7 +84,7 @@ function App() {
   const handleOnboardingComplete = () => {
     setIsOnboarded(true);
     setIsAppLoading(false);
-    localStorage.setItem('noorbee_onboarded', 'true');
+    localStorage.setItem('noorbee_onboarded_v2', 'true');
   };
 
   if (currentPage === 'admin') {

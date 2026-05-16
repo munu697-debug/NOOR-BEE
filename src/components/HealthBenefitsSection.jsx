@@ -28,6 +28,29 @@ const HealthBenefitsSection = () => {
         { id: 6, title: "Taste & Nutrition", icon: <Activity size={28} strokeWidth={1.5} />, desc: "A perfect blend of taste and nutrition.", top: false },
     ];
 
+    const isMobile = typeof window !== 'undefined' ? window.innerWidth <= 768 : false;
+
+    if (isMobile) {
+        return (
+            <section className="health-mobile-list" id="health">
+                <div className="dash-section-header" style={{ padding: '0 20px', marginBottom: '20px' }}>
+                    <h3 style={{ fontSize: '20px', fontWeight: '700' }}>Health Benefits</h3>
+                </div>
+                <div className="benefits-v-list">
+                    {benefits.map(b => (
+                        <div key={b.id} className="benefit-v-card">
+                            <div className="benefit-v-icon">{b.icon}</div>
+                            <div className="benefit-v-text">
+                                <h4>{b.title}</h4>
+                                <p>{b.desc}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+        );
+    }
+
     const positions = [8.33, 25, 41.66, 58.33, 75, 91.66]; // For 200% width
 
     return (

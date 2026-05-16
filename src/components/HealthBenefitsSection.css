@@ -1,4 +1,51 @@
 /* HealthBenefitsSection.css */
+.health-mobile-list {
+    padding: 60px 20px;
+    background: #fdf6e6;
+}
+
+.benefits-v-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.benefit-v-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+    border: 1px solid rgba(241, 161, 0, 0.05);
+}
+
+.benefit-v-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(241, 161, 0, 0.1);
+    color: #f1a100;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.benefit-v-text h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+.benefit-v-text p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+}
+
 .health-timeline-section {
     height: 300vh; /* Extremely tall to extend page length */
     background: #fdfaf4; /* Clean NOOR BEE Cream */
@@ -109,15 +156,6 @@
     z-index: 3;
 }
 
-/* Math layout for height 500 */
-/* Middle is 250.
-SVG is 200px thick (150 to 350).
-Peaks at 150 + 25 = 175.
-Valleys at 150 + 175 = 325.
-Icon is 70px tall (35px center displacement).
-Icon top center = 175 - 35 = 140px.
-Icon bottom center = 325 - 35 = 290px.
-*/
 .icon-top { top: 140px; }
 .icon-bottom { top: 290px; }
 
@@ -153,7 +191,7 @@ Icon bottom center = 325 - 35 = 290px.
 
 /* Mobile responsive fallback */
 @media (max-width: 1024px) {
-    .health-timeline-section { height: auto; }
+    .health-timeline-section { height: auto; display: none; }
     .ht-sticky-view { height: auto; position: relative; padding: 100px 5%; overflow: visible; }
     .ht-header { position: relative; top: 0; margin-bottom: 60px; }
     

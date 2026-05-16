@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './SplashScreen.css';
 
 const SplashScreen = ({ onComplete }) => {
+    const [phase, setPhase] = useState('logo'); // 'logo' -> 'onboarding'
     const [isVisible, setIsVisible] = useState(true);
+
+    useEffect(() => {
+        // Logo splash phase
+        const timer = setTimeout(() => {
+            setPhase('onboarding');
+        }, 2200);
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleStart = () => {
         setIsVisible(false);
@@ -11,12 +20,36 @@ const SplashScreen = ({ onComplete }) => {
     };
 
     return (
-        <AnimatePresence>
-            {isVisible && (
+        <AnimatePresence mode="wait">
+            {isVisible && phase === 'logo' && (
                 <motion.div 
-                    className="onboarding-container"
+                    key="logo-phase"
+                    className="splash-screen-logo"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
+                    exit={{ opacity: 0, scale: 1.1 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <div className="splash-content-logo">
+                        <motion.div className="logo-glow" animate={{ opacity: [0.2, 0.5, 0.2] }} transition={{ duration: 2, repeat: Infinity }} />
+                        <img src="/images/logo/logo.png" alt="Noorbee" className="splash-logo-img" />
+                        <motion.h1 
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.3 }}
+                        >
+                            NOOR BEE
+                        </motion.h1>
+                    </div>
+                </motion.div>
+            )}
+
+            {isVisible && phase === 'onboarding' && (
+                <motion.div 
+                    key="onboarding-phase"
+                    className="onboarding-container"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.6 }}
                 >

@@ -1,8 +1,9 @@
 .mobile-dashboard-wrap {
     padding: 20px;
-    padding-bottom: 100px;
-    background: #fdf6e6; /* Soft cream background */
+    padding-bottom: 120px;
+    background: #fefaf1; /* Warm cream background */
     min-height: 100vh;
+    font-family: 'Inter', sans-serif;
 }
 
 .mobile-dash-header {
@@ -15,20 +16,16 @@
 .user-profile-dash {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
 }
 
 .avatar-dash {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     overflow: hidden;
     background: #f1a100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(241, 161, 0, 0.2);
 }
 
 .avatar-dash img {
@@ -42,33 +39,33 @@
     flex-direction: column;
 }
 
-.welcome-text-dash span {
-    font-size: 12px;
-    color: #888;
+.welcome-label {
+    font-size: 13px;
+    color: #999;
 }
 
-.welcome-text-dash strong {
-    font-size: 16px;
+.user-name-dash {
+    font-size: 18px;
     color: #1a1a1a;
     font-weight: 700;
 }
 
 .notif-btn-dash {
-    width: 45px;
-    height: 45px;
+    width: 48px;
+    height: 48px;
     background: #fff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.04);
 }
 
 .notif-dot {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 14px;
+    right: 14px;
     width: 8px;
     height: 8px;
     background: #ff4d4d;
@@ -78,52 +75,54 @@
 
 .dash-search-row {
     display: flex;
-    gap: 12px;
+    gap: 15px;
     margin-bottom: 25px;
 }
 
 .search-bar-dash {
     flex: 1;
     background: #fff;
-    border-radius: 100px;
-    padding: 12px 20px;
+    border-radius: 20px;
+    padding: 14px 20px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    gap: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.03);
 }
 
 .search-icon-dash {
-    color: #888;
+    color: #ccc;
 }
 
 .search-bar-dash input {
     border: none;
     outline: none;
     background: transparent;
-    font-size: 15px;
+    font-size: 16px;
     width: 100%;
+    color: #333;
 }
 
 .filter-btn-dash {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     background: #fff;
-    border-radius: 50%;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+    color: #333;
 }
 
 .dash-hero-card {
-    background: #f1a100;
-    border-radius: 30px;
-    padding: 25px;
+    background: #ffc107; /* Bright warm yellow from image */
+    border-radius: 35px;
+    padding: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     position: relative;
     overflow: hidden;
     color: #fff;
@@ -131,78 +130,80 @@
 
 .hero-card-content {
     flex: 1;
-    position: relative;
     z-index: 2;
 }
 
-.dash-hero-card h2 {
-    font-size: 24px;
+.promo-title {
+    font-size: 26px;
     font-weight: 800;
-    margin-bottom: 8px;
-}
-
-.dash-hero-card p {
-    font-size: 14px;
-    opacity: 0.9;
-    margin-bottom: 15px;
-}
-
-.shop-now-dash {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    margin-bottom: 10px;
+    line-height: 1.1;
     color: #fff;
-    padding: 8px 16px;
+}
+
+.promo-desc {
+    font-size: 14px;
+    opacity: 0.95;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.shop-now-dash-btn {
+    background: #f1a100;
+    color: #fff;
+    padding: 10px 24px;
     border-radius: 100px;
-    font-size: 12px;
-    font-weight: 600;
-    backdrop-filter: blur(5px);
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 .hero-special-badge {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: 15px;
+    right: -15px;
     background: #000;
     color: #ffde00;
     font-size: 10px;
-    font-weight: 800;
-    padding: 6px 12px;
+    font-weight: 900;
+    padding: 6px 15px;
     transform: rotate(15deg);
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
-.hero-card-img {
-    width: 100px;
-    height: 100px;
-    position: relative;
+.hero-card-img-wrap {
+    width: 110px;
+    height: 110px;
 }
 
-.dash-hero-bee {
+.dash-hero-bee-img {
     width: 100%;
     height: auto;
-    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.2));
 }
 
 .dash-section {
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 .dash-section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    padding: 0 5px;
 }
 
 .dash-section-header h3 {
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 800;
     color: #1a1a1a;
 }
 
 .see-all-dash {
-    font-size: 13px;
-    color: #888;
+    font-size: 14px;
+    color: #999;
+    font-weight: 600;
     background: transparent;
 }
 
@@ -210,7 +211,7 @@
     display: flex;
     gap: 15px;
     overflow-x: auto;
-    padding-bottom: 10px;
+    padding: 5px 5px 15px;
     scrollbar-width: none;
 }
 
@@ -220,112 +221,124 @@
 
 .dash-cat-item {
     background: #fff;
-    padding: 10px;
-    border-radius: 40px;
+    padding: 12px;
+    border-radius: 45px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    min-width: 80px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-    border: 1px solid transparent;
+    gap: 12px;
+    min-width: 90px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.03);
 }
 
 .dash-cat-item.active {
     background: #f1a100;
+}
+
+.dash-cat-item.active .cat-name-dash {
     color: #fff;
 }
 
-.dash-cat-icon {
-    width: 50px;
-    height: 50px;
-    background: #fdf6e6;
+.dash-cat-icon-circle {
+    width: 55px;
+    height: 55px;
+    background: #fefaf1;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px;
+    padding: 10px;
 }
 
-.dash-cat-icon img {
+.dash-cat-icon-circle img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.dash-cat-item span {
-    font-size: 12px;
-    font-weight: 600;
+.cat-name-dash {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
 }
 
-.cat-arrow-dash {
-    background: rgba(0,0,0,0.05);
+.cat-arrow-circle {
+    background: rgba(0,0,0,0.04);
     border-radius: 50%;
-    padding: 2px;
+    padding: 3px;
+    color: #999;
+}
+
+.dash-cat-item.active .cat-arrow-circle {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
 }
 
 .dash-products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 20px;
 }
 
 .dash-prod-card {
     background: #fff;
-    border-radius: 20px;
-    padding: 12px;
+    border-radius: 25px;
+    padding: 15px;
     position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.04);
 }
 
-.dash-fav-btn {
+.dash-fav-heart-btn {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 28px;
-    height: 28px;
+    top: 15px;
+    right: 15px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    background: rgba(0,0,0,0.03);
+    background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #888;
+    color: #ff4d4d;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.05);
 }
 
-.dash-prod-img {
+.dash-prod-img-box {
     width: 100%;
-    height: 120px;
-    margin-bottom: 12px;
+    height: 130px;
+    margin-bottom: 15px;
     display: flex;
     justify-content: center;
 }
 
-.dash-prod-img img {
+.dash-prod-img-box img {
     height: 100%;
     object-fit: contain;
 }
 
-.dash-prod-info h4 {
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 8px;
+.dash-prod-info-box h4 {
+    font-size: 15px;
+    color: #1a1a1a;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
-.dash-prod-bottom {
+.dash-prod-price-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.dash-price {
-    font-size: 15px;
-    font-weight: 700;
+.dash-price-text {
+    font-size: 18px;
+    font-weight: 800;
     color: #f1a100;
 }
 
-.dash-rating {
-    font-size: 11px;
-    color: #888;
+.dash-rating-badge {
+    font-size: 12px;
+    color: #999;
+    font-weight: 600;
 }
 
 @media (min-width: 769px) {
