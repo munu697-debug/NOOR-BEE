@@ -38,7 +38,7 @@
     align-items: center;
 }
 
-/* Each tab item */
+/* Each tab item — works for both <a> and <button> */
 .mobile-bottom-nav .nav-item {
     display: flex;
     flex-direction: column;
@@ -49,9 +49,15 @@
     text-decoration: none;
     padding: 10px 8px 8px;
     border-radius: 16px;
-    flex: 1;                      /* Equal width for all tabs */
+    flex: 1;
     position: relative;
     transition: color 0.25s ease, background 0.25s ease;
+    /* Button reset */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Active tab */

@@ -1,23 +1,40 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Home, Grid, ShoppingCart, Clock, User } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import './MobileBottomNav.css';
 
-const MobileBottomNav = ({ activeTab, onTabChange }) => {
-    const { cartItems } = useCart();
+const MobileBottomNav = ({ activeTab, onNavigate }) => {
+    const { cartItems, setIsCartOpen } = useCart();
     const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
     const tabs = [
-        { id: 'home', icon: Home, label: 'Home', href: '#' },
-        { id: 'shop', icon: Grid, label: 'Shop', href: '#shop' },
-        { id: 'cart', icon: ShoppingCart, label: 'Cart', count: cartCount },
-        { id: 'profile', icon: User, label: 'Profile', href: '#profile' },
-        { id: 'contact', icon: Clock, label: 'Support', href: '#contact' }
+        { id: 'home',    icon: Home,         label: 'Home'    },
+        { id: 'shop',    icon: Grid,         label: 'Shop'    },
+        { id: 'cart',    icon: ShoppingCart, label: 'Cart', count: cartCount },
+        { id: 'profile', icon: User,         label: 'Profile' },
+        { id: 'contact', icon: Clock,        label: 'Support' },
     ];
 
+    const handleTabClick = (tab) => {
+        if (tab.id === 'cart') {
+            // Open cart modal directly — no page navigation needed
+            setIsCartOpen(true);
+            return;
+        }
+        // Push new hash → App.jsx hashchange listener picks it up
+        const hash = tab.id === 'home' ? '#' : `#${tab.id}`;
+        if (window.location.hash === hash && tab.id !== 'home') {
+            // Already on this hash — force state update via custom event
+            window.dispatchEvent(new HashChangeEvent('hashchange'));
+        } else {
+            window.location.hash = hash;
+        }
+        // Also call direct callback if provided (avoids hashchange race)
+        if (onNavigate) onNavigate(tab.id === 'home' ? 'home' : tab.id);
+    };
+
     return (
-        /* Use a plain div so no Framer Motion transform overrides the CSS margin:auto centering */
         <div className="mobile-bottom-nav">
             <div className="nav-items-container">
                 {tabs.map((tab) => {
@@ -25,20 +42,17 @@ const MobileBottomNav = ({ activeTab, onTabChange }) => {
                     const isActive = activeTab === tab.id;
 
                     return (
-                        <a
+                        <button
                             key={tab.id}
-                            href={tab.href}
                             className={`nav-item ${isActive ? 'active' : ''}`}
-                            onClick={(e) => {
-                                if (tab.id === 'cart') {
-                                    e.preventDefault();
-                                    document.querySelector('.cart-icon-wrapper')?.click();
-                                }
-                            }}
+                            onClick={() => handleTabClick(tab)}
+                            aria-label={tab.label}
                         >
                             <div className="icon-wrapper">
-                                <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
-                                {tab.count > 0 && <span className="nav-badge">{tab.count}</span>}
+                                <Icon size={22} strokeWidth={isActive ? 2.5 : 1.8} />
+                                {tab.count > 0 && (
+                                    <span className="nav-badge">{tab.count}</span>
+                                )}
                             </div>
                             <span className="nav-label">{tab.label}</span>
                             {isActive && (
@@ -48,7 +62,7 @@ const MobileBottomNav = ({ activeTab, onTabChange }) => {
                                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                                 />
                             )}
-                        </a>
+                        </button>
                     );
                 })}
             </div>

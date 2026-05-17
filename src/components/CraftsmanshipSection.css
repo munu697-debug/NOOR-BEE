@@ -98,16 +98,72 @@
 }
 
 @media (max-width: 768px) {
+    /* MOBILE OVERRIDE: Replace heavy 400vh sticky dark scroll with a clean light card */
+    .craft-wrapper {
+        height: auto !important;
+        background: #fefaf1 !important;
+        padding: 60px 20px;
+    }
+
+    .craft-sticky {
+        position: static !important;
+        height: auto !important;
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        background: transparent;
+    }
+
+    .craft-bg {
+        display: none !important;
+    }
+
+    .craft-overlay {
+        display: none !important;
+    }
+
+    .craft-text-container {
+        position: static !important;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0;
+        height: auto;
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    /* Each phrase becomes its own visible card */
     .craft-huge-text {
-        font-size: 14vw;
+        position: static !important;
+        opacity: 1 !important;
+        transform: none !important;
+        font-size: 36px;
+        color: #1a1a1a;
+        text-align: left;
+        width: 100%;
+        padding: 28px 24px;
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+        margin: 0;
     }
 
     .craft-huge-text h2 {
-        font-size: 14vw;
+        font-size: 36px;
+        color: #1a1a1a;
+        margin: 0;
+    }
+
+    .craft-huge-text span {
+        color: #f1a100;
     }
 
     .craft-subtext {
-        font-size: 18px;
-        margin-top: 20px;
+        display: block;
+        font-size: 15px;
+        color: #888;
+        margin-top: 12px;
+        font-weight: 500;
     }
 }

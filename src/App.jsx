@@ -144,7 +144,7 @@ function App() {
             </main>
           )}
 
-          {isMobile && <MobileBottomNav activeTab={currentPage} />}
+          {isMobile && <MobileBottomNav activeTab={currentPage} onNavigate={setCurrentPage} />}
           <WishlistModal />
           <CartModal />
           <SpeedInsights />
