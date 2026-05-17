@@ -1,55 +1,66 @@
-.mobile-bottom-nav {
-    position: fixed;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 92%;
-    max-width: 440px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 24px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 15px;
-    z-index: 9999;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+/* ==============================
+   MOBILE BOTTOM NAV - HORIZONTAL
+   Hidden on desktop >= 769px
+   ============================== */
+
+/* Only show on mobile */
+@media (min-width: 769px) {
+    .mobile-bottom-nav {
+        display: none !important;
+    }
 }
 
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    /* Center the bar: left + right + margin:auto works without transform conflicts */
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 90%;
+    max-width: 420px;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 22px;
+    z-index: 9999;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.14);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 6px 8px;
+}
+
+/* Horizontal flex row for nav items */
 .nav-items-container {
     display: flex;
+    flex-direction: row;          /* ← Force horizontal */
     width: 100%;
     justify-content: space-around;
     align-items: center;
 }
 
+/* Each tab item */
 .mobile-bottom-nav .nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    color: #999;
+    justify-content: center;
+    gap: 3px;
+    color: #aaa;
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 8px 12px;
+    padding: 10px 8px 8px;
     border-radius: 16px;
+    flex: 1;                      /* Equal width for all tabs */
     position: relative;
-    min-width: 60px;
+    transition: color 0.25s ease, background 0.25s ease;
 }
 
+/* Active tab */
 .mobile-bottom-nav .nav-item.active {
     color: #f1a100;
-    background: rgba(241, 161, 0, 0.08);
+    background: rgba(241, 161, 0, 0.07);
 }
 
-.mobile-bottom-nav .nav-label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: capitalize;
-}
-
+/* Icon wrapper */
 .mobile-bottom-nav .icon-wrapper {
     position: relative;
     display: flex;
@@ -57,35 +68,40 @@
     justify-content: center;
 }
 
+/* Cart badge */
 .mobile-bottom-nav .nav-badge {
     position: absolute;
-    top: -8px;
-    right: -10px;
+    top: -7px;
+    right: -9px;
     background: #f1a100;
     color: #fff;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 800;
-    min-width: 18px;
-    height: 18px;
+    min-width: 17px;
+    height: 17px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 2px solid #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.12);
 }
 
-.mobile-bottom-nav .active-indicator {
+/* Tab label text */
+.mobile-bottom-nav .nav-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: capitalize;
+    line-height: 1;
+}
+
+/* Active dot indicator */
+.mobile-bottom-nav .active-dot {
     position: absolute;
-    bottom: -12px;
-    width: 20px;
+    bottom: 3px;
+    width: 4px;
     height: 4px;
+    border-radius: 50%;
     background: #f1a100;
-    border-radius: 2px 2px 0 0;
-}
-
-@media (min-width: 769px) {
-    .mobile-bottom-nav {
-        display: none;
-    }
 }

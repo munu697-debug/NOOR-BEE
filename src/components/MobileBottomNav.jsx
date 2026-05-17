@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Home, Grid, ShoppingCart, Clock, User } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import './MobileBottomNav.css';
@@ -17,26 +17,21 @@ const MobileBottomNav = ({ activeTab, onTabChange }) => {
     ];
 
     return (
-        <motion.div 
-            className="mobile-bottom-nav"
-            initial={{ y: 100 }}
-            animate={{ y: 0 }}
-            transition={{ delay: 1, duration: 0.5 }}
-        >
+        /* Use a plain div so no Framer Motion transform overrides the CSS margin:auto centering */
+        <div className="mobile-bottom-nav">
             <div className="nav-items-container">
                 {tabs.map((tab) => {
                     const Icon = tab.icon;
                     const isActive = activeTab === tab.id;
 
                     return (
-                        <a 
+                        <a
                             key={tab.id}
                             href={tab.href}
                             className={`nav-item ${isActive ? 'active' : ''}`}
                             onClick={(e) => {
                                 if (tab.id === 'cart') {
                                     e.preventDefault();
-                                    // Handle cart open elsewhere or via context
                                     document.querySelector('.cart-icon-wrapper')?.click();
                                 }
                             }}
@@ -44,20 +39,20 @@ const MobileBottomNav = ({ activeTab, onTabChange }) => {
                             <div className="icon-wrapper">
                                 <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
                                 {tab.count > 0 && <span className="nav-badge">{tab.count}</span>}
-                                {isActive && (
-                                    <motion.div 
-                                        className="active-indicator"
-                                        layoutId="active-nav"
-                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                    />
-                                )}
                             </div>
                             <span className="nav-label">{tab.label}</span>
+                            {isActive && (
+                                <motion.div
+                                    className="active-dot"
+                                    layoutId="active-nav"
+                                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                                />
+                            )}
                         </a>
                     );
                 })}
             </div>
-        </motion.div>
+        </div>
     );
 };
 
