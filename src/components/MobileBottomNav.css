@@ -18,6 +18,13 @@
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.nav-items-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .mobile-bottom-nav .nav-item {
     display: flex;
     flex-direction: column;
