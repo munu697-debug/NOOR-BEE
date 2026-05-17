@@ -174,3 +174,85 @@
         font-size: 28px;
     }
 }
+/* =============================================
+   MOBILE: Replace 400vh sticky horizontal scroll
+   with a simple swipeable card stack
+   ============================================= */
+@media (max-width: 768px) {
+    .testimonials-scroll-container {
+        height: auto !important;
+        background: #fefaf1;
+        padding: 60px 20px 80px;
+    }
+
+    .testimonials-sticky {
+        position: static !important;
+        height: auto !important;
+        overflow: visible;
+        padding-top: 0;
+        gap: 24px;
+    }
+
+    .testimonials-header {
+        margin-bottom: 30px;
+    }
+
+    .testimonials-header h2 {
+        font-size: 26px;
+        text-align: left;
+    }
+
+    /* Stack slides vertically on mobile */
+    .slider-mask {
+        width: 100%;
+        overflow: visible;
+    }
+
+    .slider-track {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        transform: none !important; /* Override Framer Motion x */
+        gap: 20px;
+    }
+
+    .slide-item {
+        width: 100% !important;
+        justify-content: flex-start;
+    }
+
+    .testimonials-container {
+        flex-direction: column;
+        gap: 20px;
+        text-align: left;
+        background: #fff;
+        border-radius: 28px;
+        padding: 28px 24px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+        width: 100%;
+    }
+
+    .test-image-wrapper {
+        width: 80px;
+        height: 80px;
+        flex-shrink: 0;
+    }
+
+    .yellow-shape {
+        display: none;
+    }
+
+    .quote-mark {
+        font-size: 50px;
+        margin-bottom: 10px;
+    }
+
+    .quote-text {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .slider-progress-bar-container {
+        display: none;
+    }
+}

@@ -107,7 +107,7 @@ function App() {
             onMenuOpen={() => setIsMenuOpen(true)} 
           />
           
-          <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+          <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} onNavigate={setCurrentPage} />
 
           {isMobile && currentPage === 'home' ? (
             <main className="main-content mobile-home">
